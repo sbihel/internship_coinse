@@ -1,0 +1,44 @@
+Title:       Automated Test Data Generation for Dynamically Typed Programming Languages
+Subtitle:    Internship in COINSE lab with Shin Yoo, KAIST
+Author:      Simon Bihel
+Affiliation: University of Rennes1 & ENS Rennes
+Email:       simon.bihel@ens-rennes.fr
+Web:         https://simonbihel.me
+Language:    english
+Date:        [2017-05-15 Mon]--[2017-08-04 Fri]
+Project:     https://github.com/sbihel/internship_coinse
+
+
+= Introduction=
+
+
+= Findings =
+
+== Bibliography ==
+
+== Contribution ==
+
+
+= Development =
+
+
+= Global Goals =
+
+
+= Journal =
+- [[Preparation]]
+- [[Week  1]] <2017-05-15 Mon>--<2017-05-19 Fri>
+- [[Week  2]] <2017-05-22 Mon>--<2017-05-26 Fri>
+- [[Week  3]] <2017-05-29 Mon>--<2017-06-02 Fri>
+- [[Week  4]] <2017-06-05 Mon>--<2017-06-09 Fri>
+- [[Week  5]] <2017-06-12 Mon>--<2017-06-16 Fri>
+- [[Week  6]] <2017-06-19 Mon>--<2017-06-23 Fri>
+- [[Week  7]] <2017-06-26 Mon>--<2017-06-30 Fri>
+- [[Week  8]] <2017-07-03 Mon>--<2017-07-07 Fri>
+- [[Week  9]] <2017-07-10 Mon>--<2017-07-14 Fri>
+- [[Week 10]] <2017-07-17 Mon>--<2017-07-21 Fri>
+- [[Week 11]] <2017-07-24 Mon>--<2017-07-28 Fri>
+- [[Week 12]] <2017-07-31 Mon>--<2017-08-04 Fri>
+
+
+= Conclusion =
