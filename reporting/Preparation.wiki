@@ -1,1 +1,3 @@
-
+- cavm compiles
+- broke python installation
+    - [X] fix slow python
