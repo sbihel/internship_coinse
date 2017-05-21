@@ -1,1 +1,65 @@
+= Bibliography =
+- Evaluating CAVM: A New Search-Based Test Data Generation Tool for C
+    - .
 
+== AVM ==
+- [[http://www.cc.gatech.edu/~harrold/6340/cs6340_fall2010/Readings/korel-test-generation.pdf|korel1990automated]] Automated Software Test Data Generation
+    - Dynamic approach (different than symbolic approach) which is based on real execution.
+    - Good short presentation of basic concepts.
+    - Determine input variables that are responsible for the current value of the branch function.
+    - Handling dynamic data structures.
+    - Not optimal, many problems exposed in conclusion.
+- TODO [[http://eprints.whiterose.ac.uk/104204/1/c43.pdf|mcminn2016avmf]] AVMf: An open-source framework and implementation of the alternating variable method
+
+== SBSE ==
+- REDO [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.122.33&rep=rep1&type=pdf|mcminn2004search]] Search-based Software Test Data Generation: A Survey
+    - Test Data Generation Survey.
+    - Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+- TODO [[http://mcminn.io/publications/tr1.pdf|mcminn2007iguana]] IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+== Dynamically-Typed Languages ==
+- [[https://hal.inria.fr/file/index/docid/614769/filename/Duca11a-IWST11-RandomTesting.pdf|ducasse2011challenges]] Challenges to support automated random testing for dynamically typed languages
+    - .
+- [[https://sci-hub.cc/10.1007/978-1-4302-0038-3_11|eckel2005strong]] Strong Typing vs. Strong Testing
+    - What is important is (unit) tests
+- [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.423.329&rep=rep1&type=pdf|gligoric2011smutant]] SMutant: A Tool for Type-Sensitive Mutation Testing in a Dynamic Language
+    - Instead of applying mutations statically, SMutant postpones mutating until execution and applies mutations
+      dynamically, when the types are available.
+
+Not usefull:
+- [[https://pdfs.semanticscholar.org/5a6d/9e1c28c29626d4fca7aa1b822c3921f0c23e.pdf|hanenberg2010experiment]] An Experiment About Static and Dynamic Type Systems
+    - Doubts About the Positive Impact of Static Type Systems on Development Time
+
+
+= Journal =
+== Things Done ==
+- Read [[http://www.cc.gatech.edu/~harrold/6340/cs6340_fall2010/Readings/korel-test-generation.pdf|korel1990automated]].
+  Each time you change an input you have to re-execute the program. And you have to know the range of input to be able
+  to tel a small from a big change to an input.
+- Read cavm code
+- Thoughts about dynamically typed languages
+    - Problem: find possible types.
+        - Dynamic approach has "very limited ability to detect path infeasibility"[korel1990automated].
+        - Type inference and then test?
+        - Limit to just common types?
+- Handling switch cases in CAVM
+- Seminar (병현):
+  - Multi-Objectives Test Report Prioritization
+  - Image (screenshots) processing
+
+== Blocking Points ==
+- The queue used by Process, the program puts in it its traces?
+
+== Planned work ==
+- [ ] Think about what work to focus on (dynamically typed languages?)
+- [ ] Read about Alternating Variable Method
+- [ ] Understand CAVM
+- [ ] Read about testing Dynamically Typed languages
+- [ ] Handling switch cases in CAVM
+    - [ ] Extend `MyASTVisitor::VisitStmt`
+        - [ ] `if` blocks before the `switch`
+            - [ ] Regular `case` and `default`
+            - [ ] Dealing with omission of `break`
+            - [ ] Name of the temporary variable
+        - [ ] keep `switch`
+    - [ ] Add MWE (Minimal Working Example)
