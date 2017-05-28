@@ -1,1 +1,60 @@
+= Bibliography =
+- TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C
 
+== AVM ==
+- TODO [[http://eprints.whiterose.ac.uk/104204/1/c43.pdf|mcminn2016avmf]] AVMf: An open-source framework and implementation of the alternating variable method
+
+== SBSE ==
+- REDO [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.122.33&rep=rep1&type=pdf|mcminn2004search]] Search-based Software Test Data Generation: A Survey
+    - Test Data Generation Survey.
+    - Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+- TODO [[http://mcminn.io/publications/tr1.pdf|mcminn2007iguana]] IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+== Dynamically-Typed Languages ==
+- [[https://hal.inria.fr/file/index/docid/614769/filename/Duca11a-IWST11-RandomTesting.pdf|ducasse2011challenges]] Challenges to support automated random testing for dynamically typed languages
+    - Nice list of challenges
+    - No solution
+    - Milestones
+        - Dynamic type inference using random testing
+        - Random testing for dynamically typed languages using existing instances
+        - Automated random testing for dynamically typed languages
+        - Sandboxing for testing
+
+
+= Journal =
+== Things Done ==
+- Handling switch cases in CAVM
+    - One difficulty is that it is read from the bottom-up
+- Tried to config Neomake for include files and local vimrc
+- Seminar (진한)
+    - Anti-Patterns in Search-Based Program Repair
+    - 'do-not' rules (e.g. do not remove return statement)
+- Life related stuff
+- Application M2
+
+== Blocking Points ==
+- The queue used by Process, the program puts in it its traces?
+- Returns in switch cases in function calls
+- ~~Stmtid assignment going reverse~~ -> is ok
+- Add child to parent
+    * 2 passes, first one to print additional if, second is the original
+    * TreeTransform -> requires to use SemaConsumer instead of ASTConsumer ([[https://stackoverflow.com/questions/30451485/how-to-clone-or-create-an-ast-stmt-node-of-clang|SO]])
+
+== Planned work ==
+- [ ] Think about what work to focus on (dynamically typed languages?)
+- [ ] Read about Alternating Variable Method
+- [ ] Understand CAVM
+- [ ] Read about testing Dynamically Typed languages
+- [O] Handling switch cases in CAVM
+    - [O] Extend `MyASTVisitor::VisitStmt`
+        - [O] `if` blocks before the `switch`
+            - [X] Regular `case` and `default`
+            - [X] Dealing with omission of `break`
+            - [X] Name of the temporary variable
+            - [X] Stmt id with parent of `switch`
+                - [X] ASTContext in Visitor
+                - [X] Parent is next `if`
+            - [X] Add block around `if` + `switch`
+            - [ ] Add first `if` as child of parent
+        - [X] keep `switch`
+    - [X] Add MWE (Minimal Working Example)

@@ -1,6 +1,5 @@
 = Bibliography =
-- Evaluating CAVM: A New Search-Based Test Data Generation Tool for C
-    - .
+- TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C
 
 == AVM ==
 - [[http://www.cc.gatech.edu/~harrold/6340/cs6340_fall2010/Readings/korel-test-generation.pdf|korel1990automated]] Automated Software Test Data Generation
@@ -18,8 +17,7 @@
 - TODO [[http://mcminn.io/publications/tr1.pdf|mcminn2007iguana]] IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
 
 == Dynamically-Typed Languages ==
-- [[https://hal.inria.fr/file/index/docid/614769/filename/Duca11a-IWST11-RandomTesting.pdf|ducasse2011challenges]] Challenges to support automated random testing for dynamically typed languages
-    - .
+- TODO [[https://hal.inria.fr/file/index/docid/614769/filename/Duca11a-IWST11-RandomTesting.pdf|ducasse2011challenges]] Challenges to support automated random testing for dynamically typed languages
 - [[https://sci-hub.cc/10.1007/978-1-4302-0038-3_11|eckel2005strong]] Strong Typing vs. Strong Testing
     - What is important is (unit) tests
 - [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.423.329&rep=rep1&type=pdf|gligoric2011smutant]] SMutant: A Tool for Type-Sensitive Mutation Testing in a Dynamic Language
@@ -42,7 +40,7 @@ Not usefull:
         - Dynamic approach has "very limited ability to detect path infeasibility"[korel1990automated].
         - Type inference and then test?
         - Limit to just common types?
-- Handling switch cases in CAVM
+- Work on handling switch cases in CAVM
 - Seminar (병현):
   - Multi-Objectives Test Report Prioritization
   - Image (screenshots) processing
