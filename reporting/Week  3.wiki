@@ -1,1 +1,155 @@
+= Bibliography =
+- TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
 
+== AVM ==
+- [[http://eprints.whiterose.ac.uk/104204/1/c43.pdf|mcminn2016avmf]] AVMf: An open-source framework and implementation of the alternating variable method
+    - Implementation of AVM with all sorts of improvement
+    - Advantage is that it is general (e.g. so no refactoring needed)
+    [[-]] Good history of AVM
+
+== SBSE ==
+- REDO [[http://onlinelibrary.wiley.com/doi/10.1002/stvr.294/epdf|mcminn2004search]] Search-based Software Test Data Generation: A Survey
+    - Test Data Generation Survey.
+    - Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+- TODO [[http://mcminn.io/publications/tr1.pdf|mcminn2007iguana]] IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+== Dynamically-Typed Languages ==
+- [[https://www.researchgate.net/profile/David_Ungar2/publication/247925189_Interactive_type_analysis_and_extended_message_splitting_optimizing_dynamically-typed_object-oriented_programs/links/540f8fbd0cf2f2b29a3de0a4.pdf|chambers1991iterative]] Iterative Type Analysis and Extended Message Splitting: Optimizing Dynamically-Typed Object-Oriented Programs
+    - Type analysis (haven't actually read)
+- [[http://www.torkar.se/resources/mairhofer_2011_sbst_dynlang_camera_ready_usletter_embedded_fonts_110520.pdf|mairhofer2011search]] *Search-based Software Testing and Test Data Generation for a Dynamic Programming Language*
+    - 😿
+    - Source code not available, random testing to compare to made themselves...
+    - Excludes the testing of code that makes use of runtime modification, focuses on dynamic typing
+    - Structural testing, evolutionary search
+    - Input data generation
+        - GA to search appropriate input values, starting with random population
+- [[https://github.com/IgnoredAmbience/splats|splats]] *SpLATS: Lazy Automated Testing System (for Ruby)*
+    - Students software developement project
+    - Regression testing
+    - Uses Mock objects
+        - "It can respond to all methods; return another Mock object if output is required; and can collect information
+          about all the required methods the class it is mocking needs to implement."
+        - "The chosen method’s signature is examined and all possible sets of arguments are determined, taking into
+          consideration required and optional parameters."
+        - Each argument and most outputs is either nil or Mock, sometimes outputs are primitive types.
+        - "SpLATS therefore includes the entire execution tree of Mock objects."
+    - Executes line by line to determine acceptable types
+    - Only interesting parts are 4.3 & 6.1.1
+- [[https://github.com/evandrix/Splat/blob/master/report/final.pdf|Splat]] *SPLAT: Simple Python Lazy Automated Tester*
+    - Student Final Year Project
+    - Pythoscope: only produces a very rudimentary unit snippet; Pytestsgenerator: about the same
+    - Useful to tackle Python later
+    - Uses bytecode
+    - Detailed unit test generation:
+        1. All `None`s
+        2. All `None`s with structure
+        3. `MetaParams`, with structure and defaults
+        4. Lazy instantiation
+        5. Argument list to `UnitTestObject`
+        6. Recursive function tester
+    - On the infinite range of values: "one possible solution is to extract constants from the Python bytecode as
+      candidate values for testing first, then try the minimum, midway, and maximum range of the data type [...] then
+      randomly generate test data with feedback later"
+    - Regular expression on error messages (e.g. to deduce type if `TypeError`)
+- TODO [[http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/HauptPerscheidHirschfeld_2011_TypeHarvestingAPracticalApproachToObtainingTypingInformationInDynamicProgrammingLanguages_AcmDL.pdf|haupt2011type]] Type Harvesting A Practical Approach to Obtaining Typing Information in Dynamic Programming Languages
+    - "exploiting unit tests to automatically obtain type information for a code base"
+- TODO [[http://cseweb.ucsd.edu/~rchugh/research/popl12-nested.pdf|chugh2012nested]] ([[https://arxiv.org/pdf/1112.4106.pdf|chugh2012dependent]]) Nested Refinements: A Logic for Duck Typing
+    - "System D coordinates SMT-based logical implication and syntactic subtyping to automatically typecheck"
+- [[http://lively-kernel.org/repository/webwerkstatt2011/draft/NewWorld/SteinertHauptKrahnHirschfeld_2010_ContinuousSelectiveTesting_SpringerLNBIP.pdf|steinert2010continuous]] Continuous Selective Testing
+    - Regression testing that can handle dynamically-typed languages
+
+== Object-Oriented Languages / Complex Structures ==
+- [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.3.1224&rep=rep1&type=pdf|hayes1994testing]] Testing of Object-Oriented Programming Systems (OOPS): A Fault-Based Approach
+    - "Fault-based testing refers to the collection of information on whether classes of software faults (or defects)
+      exist in a program"
+    - Tables are missing ㅠ.ㅠ (one lists errors)
+
+== Random Testing ==
+- [[http://etheses.whiterose.ac.uk/7981/1/ociamthesismain.pdf|ahmad2014new]] New Strategies for Automated Random Testing (Thesis)
+    - Presentation of different kinds of testing and tools
+    - The rest is about identifying fault
+
+== Mutation Testing ==
+- [[http://dl.acm.org/citation.cfm?id=2025181|gligoric2011smutant]] SMutant: A Tool for Type-Sensitive Mutation Testing in a Dynamic Language
+    - "In addition to literal replacement, SMutant supports many mutation operators that are commonly seen in tools for
+      statically typed languages, such as operator replacement."
+    - "Instead of applying mutations statically, SMutant postpones mutating until execution and applies mutations
+      dynamically, when the types are available."
+- [[http://www2.hull.ac.uk/science/pdf/scriptMutation.pdf|bottaci2010type]] Type Sensitive Application of Mutation Operators for Dynamically Typed Programs
+    - "definition of mutants is performed at run-time when type information is available"
+
+
+= Journal =
+== Things Done ==
+- Related work
+- Dynamic Programming Language Testing
+    - OO tightly involved
+        - if it's not OO then error messages should be more clear about the type(?)
+        - and if we're not focusing on method testing then it's always the same thing, how to fill structures? (objects,
+          lists, ...)
+        - objects bring one more difficulty, they have a state that changes over time during execution
+    - Deduce type from method calls?
+        - Have a list of potential types?
+        - Mock objects?
+        - Laziness?
+    - Splat falls into the feedback testing while RuTeG is in systematic (optimization) testing (?)
+    - Every type has an infinite search space
+- Meeting Notes (2017-05-31)
+    - Focus on primitives types only (not on classes)
+    - Random testing with every types
+    - Instrument Python code
+    - AVM to find correct type
+- Instrument Python
+    - [[https://docs.python.org/3/library/ast.html]]
+    - [[https://greentreesnakes.readthedocs.io/en/latest/]]
+    - [[http://www.dalkescientific.com/writings/diary/archive/2010/02/22/instrumenting_the_ast.html]]
+    - [[http://adamrehn.com/articles/ast-instrumentation-examples-by-language/]]
+- Dealing with `if` conditions
+    - Instead of looking at Expr of `if`, should I just modify every comparison and `or` and `and`?
+    - You can have all sorts of things in `if`, like a `list` to test if it's empty of not
+        - Should care about that later (see difflib)
+- Seminar (성민)
+    - Managing Performance vs Accuracy Trade-offs With Loop Performance
+    - Perform just a subset of loops' iterations
+
+== Blocking Points ==
+- The queue used by Process, the program puts in it its traces?
+- Returns in switch cases in function calls
+- Add child to parent
+    * 2 passes, first one to print additional if, second is the original
+    * TreeTransform -> requires to use SemaConsumer instead of ASTConsumer ([[https://stackoverflow.com/questions/30451485/how-to-clone-or-create-an-ast-stmt-node-of-clang|SO]])
+
+== Planned work ==
+- [ ] Think about what work to focus on (dynamically typed languages?)
+- [X] Understand CAVM
+- [ ] Read about testing Dynamically Typed languages
+    - Focus on random testing maybe
+- [ ] Have a cavm run working for `switch`
+- [.] Instrument Python code
+    - [ ] Refactor `main.py` to be able to handle different languages
+    - [o] Instrument code
+        - [o] Modify code
+            - [X] Basic comparators handled: ~~Eq~~ | ~~NotEq~~ | ~~Lt~~ | ~~ltE~~ | ~~Gt~~ | ~~GtE~~
+            - [ ] Other comparators handled: Is | IsNot | In | NotIn
+            - [X] Use methods instead `l_and` e.g.
+            - [o] Branching handled
+                - [X] `if`
+                    - [X] `if`
+                    - [X] `else`
+                - [o] `while`
+                    - [X] `while`
+                    - [ ] `else`
+                - [ ] `for`
+                    - [ ] `for`
+                    - [ ] `else`
+                    - [ ] `AsyncFor`
+        - [X] Write `branch_distance` functions
+        - [o] Generate the dependence map
+            - [X] `stmtid` generation
+            - [X] dependence assignment
+            - [ ] Make the `ControlDependency cfg` more global as it is in the c version
+- [ ] AVM to find correct code of python function
+    - [ ] Make it possible for cavm to execute the python function
+- [.] Do a seperate project instead of branch for python instrumentation
+    - [ ] Make own project and merge old branch from cavm
+    - [X] Add 준휘 as collaborator
