@@ -1,1 +1,94 @@
+= Bibliography =
+- TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
 
+== AVM ==
+
+== SBSE ==
+- REDO [[http://onlinelibrary.wiley.com/doi/10.1002/stvr.294/epdf|mcminn2004search]] Search-based Software Test Data Generation: A Survey
+    - Test Data Generation Survey.
+    - Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+- TODO [[http://mcminn.io/publications/tr1.pdf|mcminn2007iguana]] IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+== Dynamically-Typed Languages ==
+- TODO [[http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/HauptPerscheidHirschfeld_2011_TypeHarvestingAPracticalApproachToObtainingTypingInformationInDynamicProgrammingLanguages_AcmDL.pdf|haupt2011type]] Type Harvesting A Practical Approach to Obtaining Typing Information in Dynamic Programming Languages
+    - "exploiting unit tests to automatically obtain type information for a code base"
+- TODO [[http://cseweb.ucsd.edu/~rchugh/research/popl12-nested.pdf|chugh2012nested]] ([[https://arxiv.org/pdf/1112.4106.pdf|chugh2012dependent]]) Nested Refinements: A Logic for Duck Typing
+    - "System D coordinates SMT-based logical implication and syntactic subtyping to automatically typecheck"
+
+== Object-Oriented Languages / Complex Structures ==
+
+== Random Testing ==
+
+== Mutation Testing ==
+
+
+= Journal =
+== Things Done ==
+- Trying to adapt cavm for Python
+    %% - Execution in sandbox and get trace
+    %% - Carry and use the AST everywhere
+    %% - Wait no I should import and call function
+    - the infrastucture seems to work
+- `switch` instrumentation for CAVM
+    - 2 rounds
+- thoughts on AVM for types
+    - finding type isn't a good goal because all types can fit with duck typing
+    - mock objects seem to be the solution (?)
+        - When do you stop in 'recursive' mock objects?
+
+== Blocking Points ==
+- ~~The queue used by Process, the program puts in it its traces?~~
+    - it's the 'trace' of `branch_distance`
+- Returns in switch cases in function calls
+- ~~Add child to parent~~
+    * 2 passes, first one to print additional if, second is the original
+    * ~~TreeTransform -> requires to use SemaConsumer instead of ASTConsumer ([[https://stackoverflow.com/questions/30451485/how-to-clone-or-create-an-ast-stmt-node-of-clang|SO]])~~
+- Instrumenting `for`
+    - handle `in` comparator
+
+== Planned work ==
+- [.] Instrument Python code
+    %% - [ ] Refactor `main.py` to be able to handle different languages
+    - [o] Instrument code
+        - [o] Modify code
+            - [X] Basic comparators handled: ~~Eq~~ | ~~NotEq~~ | ~~Lt~~ | ~~ltE~~ | ~~Gt~~ | ~~GtE~~
+            - [ ] Other comparators handled: Is | ~~IsNot~~ | In | NotIn
+            - [X] Use methods instead `l_and` e.g.
+            - [o] Branching handled
+                - [X] `if`
+                    - [X] `if`
+                    - [X] `else`
+                - [o] `while`
+                    - [X] `while`
+                    - [ ] `else`
+                - [ ] `for`
+                    - [ ] `for` (add decorator to `__iter__` [[https://stackoverflow.com/questions/1420484/how-can-i-add-a-decorator-to-an-existing-object-method]] ?)
+                    - [ ] `else`
+                    - [ ] `AsyncFor`
+        - [X] Write `branch_distance` functions
+        - [o] Generate the dependence map
+            - [X] `stmtid` generation
+            - [X] dependence assignment
+            - [ ] Make the `ControlDependency cfg` more global as in the c version
+        - [ ] Figure out the instrument of a single function (or if we need it)
+            - Yes we need it to have less details
+- [O] Convert the global tool for Python
+    - [X] import file from name (and the file might be in another dir)
+        - ~~Note that the dir needs to be a module (has a `__init__.py` file)~~
+        - Using `importlib.util` so we'll assume this project is Python 3.5+ [[https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path]]
+    - [X] carry around function name string
+    - [X] always use 'sandbox' (i.e. execute function in `Process`) to avoid importing the SUT in the tool
+    - [X] add `branch_distance.py` to the dir of the tested file
+    - [ ] find a better way for `Process` sandbox, a virgin process is enough but maybe not possible because of shared
+          queue
+- [.] AVM to find correct type of python function
+    - [X] Make it possible for cavm to execute the python function
+    - [ ] More than just types, e.g. a negative integer
+    - [ ] primitive types: bool, numeric (int, float, complex), iterator, sequence (list, tuple, range), str, binary
+          sequence (bytes, bytearray, memoryview), set (set, frozenset), dict, context manager
+          other built-in types: modules, classes, functions, methods, ...
+        - ignore 'Truth Value Testing'?
+        - keep a list of tested types for each param?
+    - [ ] Get information from TypeError
+- [ ] Better integration of the first round for code generation for `switch` in CAVM
+    - Better file names

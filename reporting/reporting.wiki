@@ -16,11 +16,6 @@ Project:     https://github.com/sbihel/internship_coinse
 
 == Bibliography ==
 
-=== Weekly Reads ===
-- [[Week  1]]
-- [[Week  2]]
-- [[Week  3]]
-
 == Contribution ==
 
 

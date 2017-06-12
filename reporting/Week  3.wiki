@@ -147,9 +147,9 @@
         - [o] Generate the dependence map
             - [X] `stmtid` generation
             - [X] dependence assignment
-            - [ ] Make the `ControlDependency cfg` more global as it is in the c version
-- [ ] AVM to find correct code of python function
+            - [ ] Make the `ControlDependency cfg` more global as in the c version
+- [ ] AVM to find correct type of python function
     - [ ] Make it possible for cavm to execute the python function
-- [.] Do a seperate project instead of branch for python instrumentation
-    - [ ] Make own project and merge old branch from cavm
+- [X] Do a seperate project instead of branch for python instrumentation
+    - [X] Make own project and merge old branch from cavm -> did a patch instead
     - [X] Add 준휘 as collaborator
