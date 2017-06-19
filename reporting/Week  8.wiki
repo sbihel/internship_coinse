@@ -1,1 +1,10 @@
+= Bibliography =
 
+
+= Journal =
+== Things Done ==
+
+== Blocking Points ==
+
+== Planned work ==
+- [ ] Paper seminar
