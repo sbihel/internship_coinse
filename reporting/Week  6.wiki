@@ -1,1 +1,218 @@
+= Bibliography =
+- TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
 
+== AVM ==
+
+== SBSE ==
+- REDO [[http://onlinelibrary.wiley.com/doi/10.1002/stvr.294/epdf|mcminn2004search]] Search-based Software Test Data Generation: A Survey
+    - Test Data Generation Survey.
+    - Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+- TODO [[http://mcminn.io/publications/tr1.pdf|mcminn2007iguana]] IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+== Dynamically-Typed Languages ==
+
+== Object-Oriented Languages / Complex Structures ==
+
+== Random Testing ==
+
+== Mutation Testing ==
+
+== Mock Testing ==
+
+== Test Data ==
+- TODO [[http://www.simonpoulding.net/papers/issre_2013_preprint.pdf|feldt2013finding]] Finding Test Data with Specific Properties via Metaheuristic Search
+- TODO [[http://ieeexplore.ieee.org/document/1702369/#full-text-section|miller1976automatic]] Automatic generation of floating-point test data
+
+
+= Journal =
+== Things Done ==
+- work on pavm
+
+- thoughts on AVM for types
+    - finding type isn't a good goal because all types can fit with duck typing
+    - mock objects seem to be the solution (?)
+        - When do you stop in 'recursive' mock objects?
+        - for each method that is missing you have to re-executing the whole function, maybe we need automatically
+          laziness
+            - the execution could be different if the method exists in some edge cases
+        - Nothing useful in the related work
+    - How do you know that a type error isn't actually a bug?
+        - if every type generates it?
+        - what is 'every type'?
+        - with mock objects you can implement it and miss the bug
+        - what if the function is supposed to raise a TypeError in some cases?
+    - try every possible combination of types?
+        - no that's stupid we're doing AVM
+    - one AVM for types then one AVM for values? doesn't seem possible
+- Integrated a random choice of type in the AVM
+    - type is changed only when there is a `TypeError`
+    - has a list of supported/usable types
+    - AVM for types
+        - if the error message changes, change variable
+        - might have a `TypeError` later on because `if False:` instead of `if 0:`
+
+- Can we write something for small programs, have a list of all possible types and try them
+
+- Maybe it could be interesting to use complex structures/types only when there are annotations
+    - (I think I've read that having lots of classes is a code smell, so annotating complex parameters isn't a big
+      overhead?)
+
+- Discussion with Shin Yoo
+    - focus on primitives and lists (with multiple types)
+
+- Started a skeletal of report
+
+- What about class decorators for parameters to allow some sort of lazyness or dynamic dataflow analysis?
+    - Why not, and if there is some `TypeError` with certain types, I can change some parameters of the same types and see
+      the impact
+
+- Abstract
+    - Despite popular usage, most of the dynamically typed languages still lack automated test data generation tools.
+      Most of the existing tools and approaches depend critically on static and explicit types, which makes it hard to
+      port any of them over to dynamically typed languages. In this paper we present a search-based test data generation
+      tool, NAME, which focuses on primitive types and lists of Python. NAME not only searches for test input values but
+      also for appropriate types for each input argument. We evaluate NAME based on the structural coverage it achieves,
+      the cost of the type search, and the overhead for the execution of the function under test. We further discuss the
+      future of automated testing for dynamic and object-oriented languages based on our experience.
+
+- can't subclass `bool` and `None` (can be the same for a user defined class)
+{{{python
+def wrapper_custom_type(type_name, *, position=None):
+    def new_instance(*args):
+        if type_name == bool:
+            class CustomType():
+                def __init__(self):
+                    self.__name__ = bool
+        else:
+            class CustomType(type_name):
+                def __init__(self, *argss):
+                    super().__init__(*argss)
+                    self.ident = position
+                    self.__name__ = type_name
+        return CustomType(*args)
+    return new_instance
+}}}
+{{{python
+>>> b = custom_types.wrapper_custom_type(bool, position=3)()
+>>> type(b)
+<class 'custom_types.wrapper_custom_type.<locals>.new_instance.<locals>.CustomType'>
+>>> isinstance(b, bool)
+False
+>>> a = custom_types.wrapper_custom_type(int, position=3)()
+>>> a
+0
+>>> type(a)
+<class 'custom_types.wrapper_custom_type.<locals>.new_instance.<locals>.CustomType'>
+>>>
+>>> isinstance(a, int)
+True
+}}}
+- `bool` is subclass of `int`
+{{{python
+>>> inspect.getmro(bool)
+(<class 'bool'>, <class 'int'>, <class 'object'>)
+>>> inspect.getmro(type(None))
+(<class 'NoneType'>, <class 'object'>)
+}}}
+- can't add information to all exceptions
+- ~~*no way to know which object is the source of type error*~~
+- ~~*change name of class*~~
+
+- Seminar (정주)
+    - On the correlation between size and metric validity
+    - Size has strong correlation with other metrics
+- Seminar (성민)
+    - Data-driven Approach, k-Nearest Neighbor, train/val/test splits
+
+- use [[https://github.com/clarete/forbiddenfruit|forbiddenfruit]] which means the project is limited to CPython
+    - still can't modify type of... type, what I want to do is modify the base exception but seems unfeasable?
+
+== Blocking Points ==
+- ~~Returns~~ Exits in switch cases in function calls
+    - underlying problem, one `if` for multiple cases
+{{{c
+switch (a) {
+    case 1: huge_problem();
+    case 2: break;
+}}}
+- Instrumenting `for`
+    - handle `in` comparator
+- Instrumenting `is`
+    - Does it make sense? because it's testing UID
+- Is TypeError a real bug or are we using the wrong type?
+- TypeError during type AVM
+    - redo all branches?
+{{{python
+def test(a):
+    if a:
+        a + 1
+}}}
+- Using floats instead of ints means that we need a way to have exact values for floats
+
+- [[https://github.com/Qix-/better-exceptions|better_exceptions]] (just for printing?)
+
+- you can only access variables from frames of function call
+
+
+== Planned work ==
+- [.] Instrument Python code
+    - [ ] Other comparators handled: Is | ~~IsNot~~ | In | ~~NotIn~~
+        - does instrumenting `is` makes sense for other than `None`?
+        - no distance for `is` or `in`
+    - [ ] Other boolean like `__notzero__`
+    - [X] Branching handled
+        - [X] `while`
+            - [X] `while`
+            - [X] `else`
+        - [X] `for`
+            - [X] `for` ~~(add decorator to `__iter__` [[https://stackoverflow.com/questions/1420484/how-can-i-add-a-decorator-to-an-existing-object-method]]?)~~ iterator wrapping the original
+            - [X] `else`
+            %% - [ ] `AsyncFor`
+            - simple `if` on wether a `StopIteration` is raised, no distance
+
+- [.] Convert the global tool for Python
+    - [ ] find a better way for `Process` sandbox, a virgin process is enough but maybe not possible because of shared
+          queue
+    - [ ] divide at some point for `float`
+        - or see it the other way around, use `int` only and then divide if needed
+    - [o] lists
+        - [X] param indexing with depth
+        - [X] recursive search
+        - [ ] implement it in the type search
+        - assumes there is a first element
+            - in the search, try there for the empty list?
+    - [X] changed from passing around the elem to passing around the index, but now I can't access elements in lists
+        - [X] use a tuple of indexes
+        - [X] subclass of `list` for individual.vector to accept tuple of indexes
+    - [ ] positive integers
+    - [ ] Type inference in AVM
+        - again you can't be sure of which parameter is the source
+        - the idea is to detect stuff like idexing
+
+- [.] AVM to find correct type of python function
+    - [X] Make it possible for cavm to execute the python function
+    - [ ] More than just types, e.g. a negative integer
+    - [ ] primitive types: ~~*bool*~~, numeric (~~*int*~~, ~~*float*~~, complex), iterator, sequence (*list*, tuple, range), ~~*str*~~, binary
+          sequence (bytes, bytearray, memoryview), set (set, frozenset), dict, context manager
+          other built-in types: modules, classes, functions, methods, ...
+        - ignore 'Truth Value Testing'?
+        - keep a list of tested types for each param?
+    - [ ] Get information from TypeError
+    - [ ] Floats seem to stay between 0 and 1
+    - [ ] try False and True to avoid problems with e.g. empty list
+    - [ ] try [] and with an element to know the type of the list, for now we'll put always the same type in lists
+        - an error can occur after because of the size being too small
+    - [ ] `TypeError` detection after
+    - [ ] method decorator to detect which parameter is at cause
+
+- [X] CAVM `switch` `default` `if`, the False branch will never be taken thus wasting computing
+    - underlying problem, one `if` for multiple cases
+- [ ] Better integration of the first round for code generation for `switch` in CAVM
+    - Better file names
+
+- [ ] Read the code of RuTeG
+- [ ] Read about GodelTest
+
+- [X] Submit abstract (2017-06-30 Fri) [[https://easychair.org/conferences/?conf=ensrennesditm12017]]
+
+- [ ] Static analysis of dynamically typed languages

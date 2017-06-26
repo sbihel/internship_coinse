@@ -24,7 +24,11 @@ Project:     https://github.com/sbihel/internship_coinse
 
 = Global Goals =
 - [ ] Report (2017-08-04)
+    - 12~15 pages, LaTeX lncs [[http://www.springer.com/computer/lncs?SGWID=0-164-6-793341-0]]
+    - First page: title, author, supervisor, start/end dates, location
+    [[-]] To submit on [[https://easychair.org/conferences/?conf=ensrennesditm12017|easychair]]
     - [[https://wiki.dit.ens-rennes.fr/DIT/Dokuwiki/doku.php/annees:2016-17:stages_m1#etape_4rapport]]
+    - Grants logos
 - [ ] Defense (2017-09)
     - 20 minutes + 5 minutes of Q&A
     - [[https://wiki.dit.ens-rennes.fr/DIT/Dokuwiki/doku.php/annees:2016-17:stages_m1#etape_5soutenances]]
