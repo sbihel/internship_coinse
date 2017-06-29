@@ -7,10 +7,17 @@
 \usepackage{hyperref}
 \usepackage{url} \urlstyle{sf}
 
-\title{Software Testing}
-\titlerunning{Software Testing}
+\usepackage{color}
+\def\todo#1{{\color{red}TODO:\quad#1}}
 
-\author{Simon Bihel}%\inst{1, 2}}
+\usepackage{datetime}
+\newdate{startdate}{15}{05}{2017}
+\newdate{enddate}{04}{08}{2017}
+
+\title{Automated Test Data Generation for Dynamically Typed Programming Languages}
+\titlerunning{Automated Test Data Generation for Dynamically Typed Programming Languages}
+
+\author{Simon Bihel\inst{1, 2}}
 \authorrunning{Simon Bihel}
 \institute{Universit\'e de Rennes 1, France \and \'Ecole Normale Sup\'erieure de Rennes, France\\
 \email{\href{mailto:simon.bihel@ens-rennes.fr}{simon.bihel@ens-rennes.fr}}}
@@ -31,7 +38,7 @@
 \hrulefill%
 
 \begin{center}
-  \textbf{May 15 2017 --- August 4 2017}
+  \displaydate{startdate} --- \displaydate{enddate}
 \end{center}
 
 \vfill
@@ -49,24 +56,65 @@
 \vfill
 
 \begin{abstract}
-The abstract should summarize the contents of the paper
-using at least 70 and at most 150 words. It will be set in 9-point
-font size and be inset 1.0 cm from the right and left margins.
-There will be two blank lines before and after the Abstract. \dots
-\keywords{keywords}
+  \todo{}
+Despite popular usage, most of the dynamically typed languages still lack
+automated test data generation tools.  Most of the existing tools and
+approaches depend critically on static and explicit types, which makes it hard
+to port any of them over to dynamically typed languages. In this paper we
+present a search-based test data generation tool, NAME, which focuses on
+primitive types and lists of Python. NAME not only searches for test input
+values but also for appropriate types for each input argument. We evaluate NAME
+based on the structural coverage it achieves, the cost of the type search, and
+the overhead for the execution of the function under test. We further discuss
+the future of automated testing for dynamic and object-oriented languages based
+on our experience.
+\keywords{software engineering, testing, coverage, experimental}
 \end{abstract}
 %
 \newpage
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam blandit auctor
-consectetur. Sed bibendum, lorem sit amet molestie molestie, dolor tortor porta
-dui, non luctus purus metus at velit. Interdum et malesuada fames ac ante ipsum
-primis in faucibus. Sed pharetra vel turpis a dignissim. Maecenas in pretium
-leo, vel pharetra mauris. Fusce non aliquam turpis. Aenean id congue eros.
-Vestibulum ultrices sit amet sapien id congue. Ut consectetur mauris leo, sed
-eleifend nisi elementum in. Mauris in rhoncus urna. Aenean tincidunt tortor id
-ligula tincidunt condimentum.
+
+\section{Introduction}
+\todo{}
+
+\begin{itemize}
+  \item Why testing
+  \item Why code coverage
+  \item Whats automated testing
+  \item Why no work on dynamic languages
+  \item What we did
+  \item plan
+\end{itemize}
+
+
+\section{Related Works}
+\todo{}~\cite{mairhofer2011search}.
+
+
+\section{Challenges}
+\todo{}
+
+
+\section{Contribution}
+\todo{}
+
+
+\section{Evaluation}
+\todo{}
+
+
+\section{Future Work}
+\todo{}
+
+
+\section{Conclusion}
+\todo{}
+
 
 \section*{Acknowledgment}
+\todo{}
+
+\bibliographystyle{llncs2e/splncs03}
+\bibliography{biblio}
 
 \end{document}
