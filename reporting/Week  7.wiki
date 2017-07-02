@@ -1,1 +1,161 @@
+= Bibliography =
+- TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
 
+== AVM ==
+
+== SBSE ==
+- REDO [[http://onlinelibrary.wiley.com/doi/10.1002/stvr.294/epdf|mcminn2004search]] Search-based Software Test Data Generation: A Survey
+    - Test Data Generation Survey.
+    - Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+- TODO [[http://mcminn.io/publications/tr1.pdf|mcminn2007iguana]] IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+== Dynamically-Typed Languages ==
+- [[http://ieeexplore.ieee.org/document/7437005/#full-text-section|wibowo2015unit]] Unit Test Code Generator for Lua Programming Language
+    - GA on binary strings
+    - doesn't talk about how they fill tables
+
+== Object-Oriented Languages / Complex Structures ==
+
+== Random Testing ==
+
+== Mutation Testing ==
+
+== Mock Testing ==
+
+== Test Data ==
+
+
+= Journal =
+== Things Done ==
+- work on pavm
+
+- explored multiple ways for the god-mock-class
+    - the `unittest.mock` mocks the behavior of functions so not really useful
+    - [[https://stackoverflow.com/a/9942607/4991081]]
+
+- Ok, it's not possible
+    - if a method isn't found it doesn't mean it won't be found in the other object
+    - without inheritance, can't import all magic methods
+    - mock objects always return mock stuff and they can't implement all magic methods
+    - can't modify builtin TypeError, we can add attributes but can't redefine methods
+    - excepthook is just a global try/except
+
+- Meeting with 유 교수님
+    - mocks for 'general types' to get wether the parameter should be numerical, string...
+
+-
+{{{python
+        tic = time.clock()
+        test_proc.start()
+        test_proc.join()
+        toc = time.clock()
+        print('TIME:', toc - tic)
+}}}
+- with and without mocking/wrapping on case1 (no use of lists)
+{{{
+ ~ $ cat /tmp/log_time | awk '{ sum += $1; n++ } END { if (n > 0) print sum / n; }'
+0.00120997
+}}}
+{{{
+ ~ $ cat /tmp/log_time2 | awk '{ sum += $1; n++ } END { if (n > 0) print sum / n; }'
+0.00116239
+}}}
+
+- Seminar (준희)
+    - Experimental Assessment of Software Metrics Using Automated Refactoring
+- Seminar (진한)
+
+== Blocking Points ==
+- ~~Returns~~ Exits in switch cases in function calls
+    - underlying problem, one `if` for multiple cases
+{{{c
+switch (a) {
+    case 1: huge_problem();
+    case 2: break;
+}}}
+- Instrumenting `is`
+    - Does it make sense? because it's testing UID
+- Is TypeError a real bug or are we using the wrong type?
+- TypeError during type AVM
+    - redo all branches?
+{{{python
+def test(a):
+    if a:
+        a + 1
+}}}
+- Using floats instead of ints means that we need a way to have exact values for floats
+
+- started to throw ideas for the report
+
+- add exception to `__getitem__` and `__setitem__` for parameters that implement them
+    - need to be subclassable
+
+- Growing a parameter is different between a string, a list, a tuple, a dict.... But they all have similar `IndexError`
+
+
+== Planned work ==
+- [.] Instrument Python code
+    - [ ] Other comparators handled: Is | ~~IsNot~~ | In | ~~NotIn~~
+        - does instrumenting `is` makes sense for other than `None`?
+        - no distance for `is` or `in`
+    - [ ] Other boolean like `__notzero__`
+    - [ ] add distance for: "iterator | simple `if` on wether a `StopIteration` is raised, no distance"
+
+- [.] Convert the global tool for Python
+    - [ ] find a better way for `Process` sandbox, a virgin process is enough but maybe not possible because of shared
+          queue
+    - [ ] divide at some point for `float`
+        - or see it the other way around, use `int` only and then divide if needed
+    - [o] lists
+        - [X] param indexing with depth
+        - [X] recursive search
+        - [ ] implement it in the type search
+        - assumes there is a first element
+            - in the search, try there for the empty list?
+            - [ ] manage the case of empty list
+        - [ ] handle slices
+    - [X] changed from passing around the elem to passing around the index, but now I can't access elements in lists
+        - [X] use a tuple of indexes
+        - [X] subclass of `list` for individual.vector to accept tuple of indexes
+    - [ ] positive integers
+    - [ ] Type inference in AVM
+        - again you can't be sure of which parameter is the source
+        - the idea is to detect stuff like idexing
+
+- [.] AVM to find correct type of python function
+    - [X] Make it possible for cavm to execute the python function
+    - [ ] More than just types, e.g. a negative integer
+    - [ ] primitive types: ~~*bool*~~, numeric (~~*int*~~, ~~*float*~~, complex), iterator, sequence (*list*, tuple, range), ~~*str*~~, binary
+          sequence (bytes, bytearray, memoryview), set (set, frozenset), dict, context manager
+          other built-in types: modules, classes, functions, methods, ...
+        - ignore 'Truth Value Testing'?
+        - keep a list of tested types for each param?
+    - [ ] Get information from TypeError
+    - [ ] Floats seem to stay between 0 and 1
+    - [ ] try False and True to avoid problems with e.g. empty list
+    - [ ] try [] and with an element to know the type of the list, for now we'll put always the same type in lists
+        - an error can occur after because of the size being too small
+    - [ ] `TypeError` detection after
+    - [ ] method decorator to detect which parameter is at cause
+
+- [ ] Read the code of RuTeG
+- [ ] ~~Read about GodelTest~~
+
+- [ ] Static analysis of dynamically typed languages
+
+- [ ] ~~Use mock objects~~
+    - [ ] ~~god-class providing methods of a primitive type~~
+    - [ ] ~~the mock class is a wrapper for an attribute and redirects all calls to that attribute~~
+
+- [ ] Instrument (list) accesses to now when we are approaching
+    - instrument? mock?
+    - instrument (try/except through decorator) + mock (index)
+- [ ] Get info to delete types that don't fit
+    - still the problem of knowing with parameter is at cause
+    - do things at random
+- [.] Type changes in AVM too
+    - [ ] type changes in `search`
+        - [ ] catch exceptions and change parameters
+        - [ ] redo previous branches
+    - [X] remove `search_type`
+    - [ ] keep old type if the error doesn't change

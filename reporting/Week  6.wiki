@@ -128,15 +128,15 @@ True
     - still can't modify type of... type, what I want to do is modify the base exception but seems unfeasable?
 
 == Blocking Points ==
-- ~~Returns~~ Exits in switch cases in function calls
-    - underlying problem, one `if` for multiple cases
-{{{c
-switch (a) {
-    case 1: huge_problem();
-    case 2: break;
-}}}
-- Instrumenting `for`
-    - handle `in` comparator
+%% - ~~Returns~~ Exits in switch cases in function calls
+%%     - underlying problem, one `if` for multiple cases
+%% {{{c
+%% switch (a) {
+%%     case 1: huge_problem();
+%%     case 2: break;
+%% }}}
+- ~~Instrumenting `for`~~
+    - ~~handle `in` comparator~~ instrumented iterator
 - Instrumenting `is`
     - Does it make sense? because it's testing UID
 - Is TypeError a real bug or are we using the wrong type?
@@ -149,7 +149,7 @@ def test(a):
 }}}
 - Using floats instead of ints means that we need a way to have exact values for floats
 
-- [[https://github.com/Qix-/better-exceptions|better_exceptions]] (just for printing?)
+- [[https://github.com/Qix-/better-exceptions|better_exceptions]] (just for printing?) (also similar [[https://github.com/skorokithakis/tbvaccine/|tbvaccine]])
 
 - you can only access variables from frames of function call
 
@@ -207,8 +207,8 @@ def test(a):
 
 - [X] CAVM `switch` `default` `if`, the False branch will never be taken thus wasting computing
     - underlying problem, one `if` for multiple cases
-- [ ] Better integration of the first round for code generation for `switch` in CAVM
-    - Better file names
+- [ ] ~~Better integration of the first round for code generation for `switch` in CAVM~~
+    - ~~Better file names~~
 
 - [ ] Read the code of RuTeG
 - [ ] Read about GodelTest
