@@ -1,0 +1,3 @@
+[submodule "cnn_slides/mtheme"]
+	path = cnn_slides/mtheme
+	url = https://github.com/matze/mtheme
