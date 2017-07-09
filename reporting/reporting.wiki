@@ -44,11 +44,11 @@ Project:     https://github.com/sbihel/internship_coinse
 - [[Week  6]] <2017-06-19 Mon>--<2017-06-23 Fri>
 - [[Week  7]] <2017-06-26 Mon>--<2017-06-30 Fri>
 - [[Week  8]] <2017-07-03 Mon>--<2017-07-07 Fri>
-    - Paper Seminar <2017-07-07 Fri>
+    - NN Seminar <2017-07-07 Fri>
 - [[Week  9]] <2017-07-10 Mon>--<2017-07-14 Fri>
 - [[Week 10]] <2017-07-17 Mon>--<2017-07-21 Fri>
 - [[Week 11]] <2017-07-24 Mon>--<2017-07-28 Fri>
-    - NN Seminar <2017-07-28 Fri>
+    - Paper Seminar <2017-07-28 Fri>
 - [[Week 12]] <2017-07-31 Mon>--<2017-08-04 Fri>
 
 

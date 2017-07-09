@@ -1,10 +1,128 @@
 = Bibliography =
+- TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
+
+== AVM ==
+
+== SBSE ==
+- REDO [[http://onlinelibrary.wiley.com/doi/10.1002/stvr.294/epdf|mcminn2004search]] Search-based Software Test Data Generation: A Survey
+    - Test Data Generation Survey.
+    - Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+- TODO [[http://mcminn.io/publications/tr1.pdf|mcminn2007iguana]] IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+- TODO [[https://www.researchgate.net/profile/Mark_Harman/publication/220741818_A_multi-objective_approach_to_search-based_test_data_generation/links/0deec520e5746749ab000000.pdf|lakhotia2007multi]] A Multi–Objective Approach To Search–Based Test Data Generation
+
+== Dynamically-Typed Languages ==
+
+== Object-Oriented Languages / Complex Structures ==
+
+== Random Testing ==
+
+== Mutation Testing ==
+
+== Mock Testing ==
+
+== Test Data ==
 
 
 = Journal =
 == Things Done ==
+- work on pavm
+
+- Watched screencast [[https://www.youtube.com/watch?v=js_0wjzuMfc|The Fun of Reinvention]]
+    - [[https://phillyai.github.io/2017-07-02-The-Fun-Of-Reinvention/|Annotations]] (in korean)
+
+- Seminar (병현)
+    - Automated Repair of Layout Cross Browser Issues Using Seach-Based Techniques
+- Seminar on NN optimization
+
+- Rehearsal 정주
 
 == Blocking Points ==
+- Instrumenting `is`
+    - Does it make sense? because it's testing UID
+- Is TypeError a real bug or are we using the wrong type?
+- TypeError during type AVM
+    - redo all branches?
+{{{python
+def test(a):
+    if a:
+        a + 1
+}}}
+- Using floats instead of ints means that we need a way to have exact values for floats
+
+- started to throw ideas for the report
+
+- add exception to `__getitem__` and `__setitem__` for parameters that implement them
+    - need to be subclassable
+
+- Growing a parameter is different between a string, a list, a tuple, a dict.... But they all have similar `IndexError`
+
+- relations between parameters, (e.g. we're removing types that don't have `__iter__` if the error says the parameter is
+  not subscriptable but in reality it could be a parameter that is applying this index to the other parameter...)
+
 
 == Planned work ==
-- [ ] Paper seminar
+- [.] Instrument Python code
+    - [ ] Other comparators handled: Is | ~~IsNot~~ | In | ~~NotIn~~
+        - does instrumenting `is` makes sense for other than `None`?
+        - no distance for `is` or `in`
+    - [ ] Other boolean like `__notzero__`
+    - [ ] add distance for: "iterator | simple `if` on wether a `StopIteration` is raised, no distance"
+
+- [.] Convert the global tool for Python
+    - [ ] find a better way for `Process` sandbox, a virgin process is enough but maybe not possible because of shared
+          queue
+    - [ ] divide at some point for `float`
+        - or see it the other way around, use `int` only and then divide if needed
+    - [o] lists
+        - [X] param indexing with depth
+        - [X] recursive search
+        - [ ] implement it in the type search
+        - assumes there is a first element
+            - in the search, try there for the empty list?
+            - [ ] manage the case of empty list
+        - [ ] handle slices
+        - [ ] direction of growth
+    - [X] changed from passing around the elem to passing around the index, but now I can't access elements in lists
+        - [X] use a tuple of indexes
+        - [X] subclass of `list` for individual.vector to accept tuple of indexes
+    - [ ] positive integers
+
+- [.] AVM to find correct type of python function
+    - [X] Make it possible for cavm to execute the python function
+    - [ ] More than just types, e.g. a negative integer
+    - [ ] primitive types: ~~*bool*~~, numeric (~~*int*~~, ~~*float*~~, complex), iterator, sequence (*list*, tuple, range), ~~*str*~~, binary
+          sequence (bytes, bytearray, memoryview), set (set, frozenset), dict, context manager
+          other built-in types: modules, classes, functions, methods, ...
+        - ignore 'Truth Value Testing'?
+        - keep a list of tested types for each param?
+    - [ ] Get information from TypeError
+    - [ ] Floats seem to stay between 0 and 1
+    - [ ] try False and True to avoid problems with e.g. empty list
+    - [ ] try [] and with an element to know the type of the list, for now we'll put always the same type in lists
+        - an error can occur after because of the size being too small
+    - [ ] `TypeError` detection after
+    - [ ] ~~method decorator to detect which parameter is at cause~~
+
+- [ ] Read the code of RuTeG
+
+- [ ] Static analysis of dynamically typed languages
+
+- [ ] Instrument subscriptable objects accesses to know when we are approaching
+    - instrument (try/except through decorator) + mock (index)
+- [X] Get info to delete types that don't fit
+    - still the problem of knowing wich parameter is at cause
+    - do things at random
+- [o] Type changes in AVM too
+    - [X] type changes in `search`
+        - [X] catch exceptions and change parameters
+        - [X] ~~redo previous branches~~
+            - no because we remember what the types for previous branches
+    - [X] remove `search_type`
+    - [ ] keep old type if the error doesn't change
+
+- [X] CNN seminar [[http://cs231n.github.io/optimization-1/|CNN optimization]]
+
+- [ ] Send email to ask in which direction I should go
+    - Do something completely random that works eventually, and write all the problematics that can be addressed in the
+      future
+    - Narrow down the problem to have a good tool
