@@ -113,7 +113,59 @@ Section~\ref{futureworks}.
 
 \section{Related Works}
 \label{relatedwork}
-\todo{}~\cite{ducasse2011challenges}~\cite{mairhofer2011search}~\cite{splat}~\cite{splats}.
+\todo{}
+
+While a lot of work has been put in automated testing for statically typed
+languages, dynamically typed languages have received very little attention. Only
+a few projects exist and each has different approach, with different levels of
+automation, and using different properties that usually come with dynamic
+languages.
+
+Multiple reasons can explain this void. Culturally, languages like Python are
+not under the same level of industrial scrutiny for structural coverage,
+compared to C or Java. But with rise of significant projects written with
+dynamic languages the light is moving toward this problem. These projects range
+from popular web applications to scientific tools. Despite this interest the
+automation of tests generation is still a daunting task.
+
+Before presenting others automated testing tools in~\ref{related_research} we
+will first explain some techniques used in general for dynamic languages
+testing in~\ref{techniques}.
+
+\subsection{Testing techniques in dynamic languages}
+\label{techniques}
+
+Following is a list of testing methods that the reader can refer to understand
+the scope of related tools.
+
+\paragraph{Mock objects} simulate to behavior of real objects. They are used to
+have more control on the execution, e.g.\ to remove some side effects to test
+one particular property of a program.
+
+\subsection{Research works}
+\label{related_research}
+
+% no \citeauthor or \citet with llncs :(
+Ducasse et al.~\cite{ducasse2011challenges} have already exposed challenges and
+milestones in random testing of dynamically-typed languages. Our work exposes
+more practical details which are explained in the next section.
+
+RuTeG~\cite{mairhofer2011search} is a Ruby tool that uses search-based
+techniques. It is not fully automated as it requires the user to provide
+different generators for specific problems for complex data.
+
+% should I say that it is a student project?
+SpLATS~\cite{splats} is another tool for Ruby. It has a lazy approach and uses
+mock objects for that purpose. It will collect information at runtime on which
+methods should be implemented and will output most of the time other mock
+objects or else primitives.
+
+SPLAT~\cite{splat} is a tool for Python with a lazy approach. One particularity
+is that it uses bytecode.
+
+These works were published around 5 years ago but without follow-up. While our
+tool has hardly anything new, we aim at building precise foundations to build on
+in future works.
 
 
 \section{Challenges}
