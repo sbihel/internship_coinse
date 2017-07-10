@@ -9,6 +9,7 @@
 
 \usepackage{color}
 \def\todo#1{{\color{red}TODO:\quad#1}}
+\def\addref#1{{\color{red}$[$#1$]$}}
 
 \usepackage{datetime}
 \newdate{startdate}{15}{05}{2017}
@@ -77,42 +78,76 @@ on our experience.
 \section{Introduction}
 \todo{}
 
-\begin{itemize}
-  \item Why testing
-  \item Why code coverage
-  \item Whats automated testing
-  \item Why no work on dynamic languages
-  \item What we did
-  \item plan
-\end{itemize}
+\addref{}
+
+Testing is an essential part of software development. Due to the lack of formal
+specification tests are the pillars to ensure well-behavior of programs, be it
+lack of crash or coherent results. Various metrics exist to evaluate how
+thoroughly tested a software is. One of these is the \textit{code coverage} that
+describes the degree to which the source code of a program is executed when a
+particular test suite runs.
+
+Automating the generation of tests is essential to free the programmer from
+writing them as is it a time-consuming and error-prone task. Evolutionary
+methods like search-based software testing has been of interest for several
+decades. In particular, the automated test data generation problem which
+consists of generating inputs to explore different kinds of properties for a
+given program.
+
+Past works on test generation automation have been focused on statically-typed
+languages (more details in Section~\ref{relatedwork}). Having information on the
+type of test inputs allows tools to focus on the values of inputs and the depth
+of complex structures. Having no knowledge on the inputs induces limitations to
+the kind of bugs a tool can detects as well as a heavier cost due to tries with
+wrongly typed inputs. Those challenges are described more in depth in
+Section~\ref{challenges}.
+
+This paper presents a method to automatically test dynamically-typed languages
+(with minimal requirements on the properties of the language)
+(Section~\ref{contribution}). We implemented it as a tool call NAME for the
+Python language. An evaluation can be found in Section~\ref{evaluation}. Many
+problems are still left with for example the generation of objects as dynamic
+languages are often Object-Oriented, and future paths of work are put down in
+Section~\ref{futureworks}.
 
 
 \section{Related Works}
-\todo{}~\cite{mairhofer2011search}.
+\label{relatedwork}
+\todo{}~\cite{ducasse2011challenges}~\cite{mairhofer2011search}~\cite{splat}~\cite{splats}.
 
 
 \section{Challenges}
+\label{challenges}
 \todo{}
 
 
 \section{Contribution}
+\label{contribution}
 \todo{}
 
 
 \section{Evaluation}
+\label{evaluation}
 \todo{}
 
 
-\section{Future Work}
+\section{Future Works}
+\label{futureworks}
 \todo{}
 
 
 \section{Conclusion}
+\label{conclusion}
 \todo{}
 
 
 \section*{Acknowledgment}
-\todo{}
+Thanks to Shin Yoo and the whole COINSE team that has been very friendly and
+welcoming. Thanks also to KAIST for hosting me.
+
+This internship was supported by the R\'egion Bretagne with the \textit{Jeune
+\`a l'International} grant as well as the ENS Rennes with the \textit{Aide
+Transport pour la Mobilit\'e \`a l'International} grant.
 
 \bibliographystyle{llncs2e/splncs03}
 \bibliography{biblio}
