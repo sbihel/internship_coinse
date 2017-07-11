@@ -69,7 +69,7 @@ based on the structural coverage it achieves, the cost of the type search, and
 the overhead for the execution of the function under test. We further discuss
 the future of automated testing for dynamic and object-oriented languages based
 on our experience.
-\keywords{software engineering, testing, coverage, experimental}
+\keywords{software engineering, testing, coverage, experimental, dynamic typing}
 \end{abstract}
 %
 \newpage
@@ -80,19 +80,19 @@ on our experience.
 
 \addref{}
 
-Testing is an essential part of software development. Due to the lack of formal
-specification tests are the pillars to ensure well-behavior of programs, be it
-lack of crash or coherent results. Various metrics exist to evaluate how
-thoroughly tested a software is. One of these is the \textit{code coverage} that
-describes the degree to which the source code of a program is executed when a
-particular test suite runs.
+Testing is an essential part of software development. Especially due to the lack
+of formal specifications, tests are the pillars to ensure well-behavior of
+programs, be it lack of crash or coherent results. Various metrics exist to
+evaluate how thoroughly tested a software is. One of these is the \textit{code
+coverage} that describes the degree to which the source code of a program is
+executed when a particular test suite runs.
 
 Automating the generation of tests is essential to free the programmer from
 writing them as is it a time-consuming and error-prone task. Evolutionary
-methods like search-based software testing has been of interest for several
-decades. In particular, the automated test data generation problem which
-consists of generating inputs to explore different kinds of properties for a
-given program.
+methods like search-based software testing have been of interest for several
+decades~\cite{miller1976automatic}. In particular, the automated test data
+generation problem~\cite{korel1990automated} which consists of generating inputs
+to explore different kinds of properties for a given program.
 
 Past works on test generation automation have been focused on statically-typed
 languages (more details in Section~\ref{relatedwork}). Having information on the
@@ -155,38 +155,94 @@ techniques. It is not fully automated as it requires the user to provide
 different generators for specific problems for complex data.
 
 % should I say that it is a student project?
-SpLATS~\cite{splats} is another tool for Ruby. It has a lazy approach and uses
-mock objects for that purpose. It will collect information at runtime on which
-methods should be implemented and will output most of the time other mock
-objects or else primitives.
+SpLATS~\cite{splats} is another tool for Ruby that was written during a student
+project. It has a lazy approach and uses mock objects for that purpose. It will
+collect information at runtime on which methods should be implemented and will
+output most of the time other mock objects or else primitives.
 
-SPLAT~\cite{splat} is a tool for Python with a lazy approach. One particularity
-is that it uses bytecode.
+SPLAT~\cite{splat} is a tool for Python with a lazy approach and is another
+student project. One particularity is that it uses bytecode.
 
 These works were published around 5 years ago but without follow-up. While our
 tool has hardly anything new, we aim at building precise foundations to build on
-in future works.
+in future works. In addition to that, as each of these projects have different
+problematics depending on the language they are tackling, we aim to identify
+some generalization for dynamically-typed languages.
 
+
+% does it make sense to do branch coverage on dynamic languages?
 
 \section{Challenges}
 \label{challenges}
 \todo{}
+
+This section presents challenges of testing dynamically-typed languages based on
+previous research~\cite{ducasse2011challenges} and our experience.
+
+\subsection{Pure dynamic types problems}
+\paragraph{Type errors} One big limitation for an automated code coverage tester
+is the inability to identify crashes. As we are trying to find coherent types
+for parameters, if a type error is raised, how can we know it is the parameters
+that are the problem and not the code?
+
+\paragraph{Relations between parameters} Parameters search can get incredibly
+complex if we think even beyond complex data structures, with for example
+functions.
+
+\paragraph{Working but unfit types} A parameter of a certain type might not
+generate type errors but make the search much more difficult. If we have for
+example a floating-point number where an integer then simply approaching a round
+value might be difficult.
+
+\subsection{The bigger picture}
+% non-problems?
+\paragraph{Instance generation and execution} When dealing with complex data
+structures like objects you might not have easy access to an initialization
+method.
+% no constructors in smalltalk -> close to what we do with just lists? methods?
+% still falls in our handling of type errors?
+
+\paragraph{Understanding results} In a case outside of simple code coverage, you
+might want to analyze the result and judge whether it is right. If a function
+ends up working for different parameters types than the ones it was designed for
+we are facing the oracle problem~\cite{barr2015oracle}.
 
 
 \section{Contribution}
 \label{contribution}
 \todo{}
 
+Sortof fork of~\cite{Kim2017ts}
+% minimal use of dynamic language features, focus on dynamic types
+% just primitive types and lists
 
-\section{Evaluation}
-\label{evaluation}
-\todo{}
+\subsection{Philosophy}
+\label{philosophy}
+
+\subsection{Technical difficulties}
+\label{tech_difficulties}
+
+
+% \section{Evaluation}
+% \label{evaluation}
+% \todo{}
+
+% try on libraries that don't use complex data structures, like math libraries
+% and such?
 
 
 \section{Future Works}
 \label{futureworks}
 \todo{}
 
+\cite{gligoric2011smutant,haupt2011type,steinert2010continuous,yoo2012regression}% regression testing
+% use annotations?
+\cite{chugh2012nested}% verification if you know the type
+\cite{chambers1991iterative}%
+
+\cite{hayes1994testing}% OO  TODO
+
+\cite{bottaci2010type} %TODO
 
 \section{Conclusion}
 \label{conclusion}
