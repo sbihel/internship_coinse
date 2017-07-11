@@ -129,18 +129,89 @@ from popular web applications to scientific tools. Despite this interest the
 automation of tests generation is still a daunting task.
 
 Before presenting others automated testing tools in~\ref{related_research} we
-will first explain some techniques used in general for dynamic languages
-testing in~\ref{techniques}.
+will first give an overview of search-based software engineering in~\ref{st},~\ref{sbse}
+and explain some techniques used in general for dynamic languages testing
+in~\ref{techniques}.
 
-\subsection{Testing techniques in dynamic languages}
+\subsection{Software testing}
+\label{st}
+
+There are a broad variety of test and metric classes. Tests have to be focused
+on one particular aspect of software to be finer grained, faster to run, to be
+more comprehensible in the bugs they find, have more precise goals to achieve
+for developer\dots\ Like many things we want to classify and abstract concepts.
+
+As we are interested in automated testing, where a tool generates tests without
+the help of the programmer, we can identify some test classes. We will focus on
+dynamic testing, as opposed to static testing (e.g.\ static analysis). We have
+two kinds of testing, black-box and white-box. We will focus on white-box but we
+will present both.
+
+\paragraph{Black-box testing} It consists of analysing only the inputs and
+outputs of the System Under Test (SUT). It is used to test functionalities,
+integration in other systems or even purely random testing. The last one is
+useful to discover failure domains~\cite{ahmad2014new}.
+
+Because we are focusing on the problem of automated testing without much
+information of what the SUT should do we will not be focusing on this kind of
+testing.
+
+\paragraph{White-box testing} On the other hand, with more information on the
+SUT (e.g.\ its source code or runtime) we can have more insightful feedbacks. We
+can different units (i.e.\ parts) of the software, analyze the data and control
+flow, or test only modified parts by what is called regression. With access to
+the innards of the SUT we can make sure that every parts of it are tested. We
+use a metric called \textit{code coverage} to evaluate the scope of tests.
+
+%BRANCH COVERAGE
+Multiple coverage criteria exist: Has every function been called? Has each
+statement been executed? Has each boolean sub-expression been evaluated both to
+true and false? Has each branch of each control structure been executed? That
+last criterion is called branch coverage and it is the one we are focusing one.
+It is part of standards~\cite{BSI98,RTCA92} for quality assurance and safety.
+
+In our case with dynamically-typed languages, working on code coverage seems to
+be a good idea to make sure we are exploring every functionalities of a function
+as they might be dependent on the type of parameters. This particular problem of
+exploring every branch of a function is called test data generation and one way
+to tackle this is to use search-based techniques.
+
+\subsection{Search-based software engineering}
+\label{sbse}
+
+When we are trying to explore different branches, we are trying to satisfy some
+boolean conditions. We will thus try to find values that can reach and pass
+these control structure. With feedback to know how close we are to go through a
+condition we can iterate, tweak parameters and re-execute the SUT\@. This way of
+solving appeared in 1990~\cite{korel1990automated} and is called
+\textit{search-based test data generation}. It has been extensively applied to
+branch coverage~\cite{mcminn2004search,lakhotia2007multi,mcminn2007iguana}.
+
+One example is the Alternating Variable Method~\cite{mcminn2016avmf} that
+consists in playing with one parameter until no positive change is seen, and
+then focus on another parameter.
+
+% it is justified to use in our case because we cannot deduce everything from
+% static analysis or symbolic execution
+
+\subsection{Testing techniques} % in dynamic languages}
 \label{techniques}
 
 Following is a list of testing methods that the reader can refer to understand
 the scope of related tools.
 
+\paragraph{Instrumentation} Instrumentation code is code that is traditionally
+insert in the SUT during compilation or linking. This code can provide various
+information like counters to record which statement are executed or compute
+distances as needed in branch coverage search.
+
 \paragraph{Mock objects} simulate to behavior of real objects. They are used to
 have more control on the execution, e.g.\ to remove some side effects to test
-one particular property of a program.
+one particular property of a program or simply to provide instrumentation. It is
+a versatile tool vastly used in the
+industry~\cite{mackinnon2000endo,taneja2010moda,freeman2004mock,tillmann2006mock}.
+
+% talk about the fact that you can't mock everyhing in python as in ruby e.g.
 
 \subsection{Research works}
 \label{related_research}
