@@ -8,7 +8,7 @@
 \usepackage{url} \urlstyle{sf}
 
 \usepackage{color}
-\def\todo#1{{\color{red}TODO:\quad#1}}
+\def\todo#1{{\color{red}TODO\@: #1}}
 \def\addref#1{{\color{red}$[$#1$]$}}
 
 \usepackage{datetime}
@@ -216,30 +216,60 @@ industry~\cite{mackinnon2000endo,taneja2010moda,freeman2004mock,tillmann2006mock
 \subsection{Research works}
 \label{related_research}
 
-% no \citeauthor or \citet with llncs :(
-Ducasse et al.~\cite{ducasse2011challenges} have already exposed challenges and
-milestones in random testing of dynamically-typed languages. Our work exposes
-more practical details which are explained in the next section.
+\todo{find better formatting}
+\begin{itemize}
+  % no \citeauthor or \citet with llncs :(
+  \item Ducasse et al.~\cite{ducasse2011challenges} have already exposed
+    challenges and milestones in random testing of dynamically-typed languages.
+    Our work exposes more practical details which are explained in the next
+    section.
 
-RuTeG~\cite{mairhofer2011search} is a Ruby tool that uses search-based
-techniques. It is not fully automated as it requires the user to provide
-different generators for specific problems for complex data.
+  \item RuTeG~\cite{mairhofer2011search} is a Ruby tool that uses search-based
+    techniques. It uses a genetic algorithm and a \textit{selecting data
+    generator}. It is not fully automated as it requires the user to provide
+    different generators for specific problems for complex data. It makes heavy
+    usage of the ability of Ruby to mock every objects including primitives. The
+    authors claim that the tool performs better than fully random generation.
+    \todo{more details}
 
-% should I say that it is a student project?
-SpLATS~\cite{splats} is another tool for Ruby that was written during a student
-project. It has a lazy approach and uses mock objects for that purpose. It will
-collect information at runtime on which methods should be implemented and will
-output most of the time other mock objects or else primitives.
+    % hard to know clearly what they achieved with these student projects
+  \item SpLATS~\cite{splats} is another tool for Ruby that was written during a
+    student project. It has a lazy approach and uses mock objects for that
+    purpose. It will collect information at runtime on which methods should be
+    implemented and will output most of the time other mock objects or else
+    primitives.
 
-SPLAT~\cite{splat} is a tool for Python with a lazy approach and is another
-student project. One particularity is that it uses bytecode.
+    Tests only methods of classes constructed by standard methods. No side
+    effects and no interactions with the environment. No inheritance. No blocks
+    or variable sized arguments.
 
-These works were published around 5 years ago but without follow-up. While our
-tool has hardly anything new, we aim at building precise foundations to build on
-in future works. In addition to that, as each of these projects have different
-problematics depending on the language they are tackling, we aim to identify
-some generalization for dynamically-typed languages.
+    Construct all possible sets of arguments with only nil or mock. When
+    implementing a method, it will return either nil or another mock object.
 
+  \item SPLAT~\cite{splat} is a tool for Python with a lazy approach and is
+    another student project. It generates unit tests for instruction coverage.
+    It works with bytecode and uses what is called meta-parameters in Python to
+    make mock objects. It uses a unit tests library to have automatically
+    generated assertions on the return value or exceptions raised. It also
+    gather structure information from the bytecode.
+
+    Excludes internal methods (those surrounded by '\texttt{\_\_}') which is
+    really problematic. Excludes string predicates but points to a
+    study~\cite{alshraideh2006search} addressing string predicates with a
+    search-based approach. Does not seem to generate recursive parameters like
+    lists of lists.
+\end{itemize}
+
+
+These works were published around 5 years ago but without follow-up. While
+writing our tool, we realised there was hardly anything new but maybe a
+potential different subset of cases handled. We thus decided to write in details
+all problems that a perfect tool should solve and we aim at building precise
+foundations to build on to in future works. As each of these projects have
+different problematics depending on the language they are tackling, we aim to
+identify some generalization for dynamically-typed languages. We use the tool
+that we wrote to illustrate with examples the challenges seen in the next
+section.
 
 % does it make sense to do branch coverage on dynamic languages?
 
@@ -248,7 +278,9 @@ some generalization for dynamically-typed languages.
 \todo{}
 
 This section presents challenges of testing dynamically-typed languages based on
-previous research~\cite{ducasse2011challenges} and our experience.
+previous research~\cite{ducasse2011challenges} and our experience. This list
+can be added to the already long list of challenges for non dynamic languages
+testing~\cite{mcminn2011search}.
 
 \subsection{Pure dynamic types problems}
 \paragraph{Type errors} One big limitation for an automated code coverage tester
@@ -258,14 +290,19 @@ that are the problem and not the code?
 
 \paragraph{Relations between parameters} Parameters search can get incredibly
 complex if we think even beyond complex data structures, with for example
-functions.
+functions. Also an object can be constructed by a function.
 
 \paragraph{Working but unfit types} A parameter of a certain type might not
 generate type errors but make the search much more difficult. If we have for
 example a floating-point number where an integer then simply approaching a round
 value might be difficult.
 
+\paragraph{Number of parameters}
+
+\paragraph{Difficulty to reduce domain of possible types}
+
 \subsection{The bigger picture}
+For example object oriented testing.
 % non-problems?
 \paragraph{Instance generation and execution} When dealing with complex data
 structures like objects you might not have easy access to an initialization
@@ -278,12 +315,28 @@ might want to analyze the result and judge whether it is right. If a function
 ends up working for different parameters types than the ones it was designed for
 we are facing the oracle problem~\cite{barr2015oracle}.
 
+\paragraph{Infinite search spaces}
+
+\paragraph{Dynamic data structures}~\cite{lakhotia2008handling} uses in part a
+set of constraint solving rules. Works on object-oriented software
+testing~\cite{tonella2004evolutionary,ciupa2008artoo} use available instances to
+generate new instances, even for statically-typed languages. Arcuri and
+Yao~\cite{arcuri2008search} focused only on containers (e.g.\ lists, trees,
+etc.) which are data structures designed to store any arbitrary type of data
+because having the right size is problematic.
+
 
 \section{Contribution}
 \label{contribution}
 \todo{}
 
-Sortof fork of~\cite{Kim2017ts}
+Our tool started as a fork of CAVM~\cite{Kim2017ts} which is a search based test
+data generation tool for C. It uses the Alternating Variable Method and can
+generate complex data structures.
+
+Our tool handles primitive types and lists (that can contain lists and different
+types). It encloses the AVM search basically catching type and index errors.
+
 % minimal use of dynamic language features, focus on dynamic types
 % just primitive types and lists
 
@@ -314,6 +367,8 @@ Sortof fork of~\cite{Kim2017ts}
 \cite{hayes1994testing}% OO  TODO
 
 \cite{bottaci2010type} %TODO
+
+% all projects exclude the testing of exec() or eval()
 
 \section{Conclusion}
 \label{conclusion}
