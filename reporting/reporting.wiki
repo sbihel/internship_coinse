@@ -30,7 +30,7 @@ Project:     https://github.com/sbihel/internship_coinse
     - [ ] [[https://wiki.dit.ens-rennes.fr/DIT/Dokuwiki/doku.php/annees:2016-17:stages_m1#etape_4rapport]]
     - [X] Grants logos
 - [ ] Defense (2017-09)
-    - 20 minutes + 5 minutes of Q&A
+    - 15 minutes + 5 minutes of Q&A
     - [[https://wiki.dit.ens-rennes.fr/DIT/Dokuwiki/doku.php/annees:2016-17:stages_m1#etape_5soutenances]]
 
 

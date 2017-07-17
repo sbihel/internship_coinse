@@ -5,7 +5,7 @@
 - [[http://eprints.whiterose.ac.uk/104204/1/c43.pdf|mcminn2016avmf]] AVMf: An open-source framework and implementation of the alternating variable method
     - Implementation of AVM with all sorts of improvement
     - Advantage is that it is general (e.g. so no refactoring needed)
-    [[-]] Good history of AVM
+    - Good history of AVM
 
 == SBSE ==
 - REDO [[http://onlinelibrary.wiley.com/doi/10.1002/stvr.294/epdf|mcminn2004search]] Search-based Software Test Data Generation: A Survey
