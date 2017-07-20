@@ -79,6 +79,7 @@ exposes them and tries to give some clues on how to tackle them.
 
 \todo{lack of illustration, there's just text}
 \section{Introduction}
+\todo{need more details to be smoother}
 
 Testing is an essential part of software development. Especially due to the lack
 of formal specifications, tests are the pillars to ensure well-behavior of
@@ -94,24 +95,20 @@ decades~\cite{miller1976automatic}. In particular, the automated test data
 generation problem~\cite{korel1990automated} which consists of generating inputs
 to explore different kinds of properties for a given program.
 
-\todo{develop what's above}
-
-\todo{rewrite completely what's below}
-
 Past works on test generation automation have been focused on statically-typed
-languages (more details in Section~\ref{relatedwork}). Having information on the
-type of test inputs allows tools to focus on the values of inputs and the depth
-of complex structures. Having no knowledge on the inputs induces limitations to
-the kind of bugs a tool can detect as well as a heavier cost due to tries with
-wrongly typed inputs. Those challenges are described more in depth in
-Section~\ref{challenges}. We also explain related challenges as
-dynamically-typed languages most often come with complex features like
-object-oriented paradigm.
+languages. Having information on the type of test inputs allows tools to focus
+on the values of inputs and the depth of complex structures. Having no knowledge
+on the inputs adds a new step in the process of testing as we have to find
+fitting types for parameters. It also induces limitations to the kind of bugs a
+tool can detect as well as a heavier cost due to tries with wrongly typed
+inputs.
 
-This paper presents the state of art on dynamically-typed software testing and
-the challenges standing in the way from our experience trying to implement such
-tool. We describe this tool in Section~\ref{contribution}.
-Section~\ref{futureworks} will describe how we could tackle these challenges.
+While developing an automated test generator for Python (presented in
+Section~\ref{contribution}) we came to the conclusion that we wouldn't have come
+further than existing works (explained in Section~\ref{relatedwork}). Thus we
+decide to write down (Section~\ref{challenges}) the challenges that the
+community will have to tackle in order to have a fully automated test generator
+for dynamically-typed languages and more generally dynamic languages.
 
 
 \section{Related Works}
@@ -239,8 +236,17 @@ example, and methods only return either null or another mock object.
   % no \citeauthor or \citet with llncs :(
   \item Ducasse et al.~\cite{ducasse2011challenges} have already exposed
     challenges and milestones in random testing of dynamically-typed languages.
-    Our work exposes more practical details which are explained in the next
-    section.\todo{also we are not doing only random testing}
+    They are talking about random testing but with a white-box approach. They
+    also bundle object-oriented with dynamic types problems. The challenges they
+    highlight are instance generation and execution, error identification, and
+    result understanding. Our work exposes more challenges as well as more
+    practical details which are explained in the next section. They also propose
+    milestones that we will discuss in Section~\ref{futureworks}. They propose
+    static analysis and dynamic type collection for type inference, regression
+    from existing instances, hand-written contracts for automated instances
+    generation, and sandboxing to protect the environment. In the end their work
+    is different than ours because we are primarily focusing on basic dynamic
+    types and test coverage.
 
   \item RuTeG~\cite{mairhofer2011search} (Ruby Test case Generator) is a Ruby
     tool that uses search-based techniques. It uses a genetic algorithm and a
@@ -272,14 +278,14 @@ example, and methods only return either null or another mock object.
     or exceptions raised. It also gather structure information from the
     bytecode.
 
-    Excludes internal methods (those surrounded by `\texttt{\_\_}') which is
-    can capture primitive operations. Excludes string predicates but points to a
-    study~\cite{alshraideh2006search} addressing string predicates with a
-    search-based approach. Does not seem to generate recursive parameters like
-    lists of lists.
+    Excludes internal methods (those surrounded by `\texttt{\_\_}') which means
+    it cannot capture primitive operations. Excludes string predicates but
+    points to a study~\cite{alshraideh2006search} addressing string predicates
+    with a search-based approach. Does not seem to generate recursive parameters
+    like lists of lists.
 \end{itemize}
 
-These works were published around 5 years ago but without follow-up. While
+These works were published at least 5 years ago but without follow-up. While
 writing our tool, we realised there was hardly anything new but maybe a
 potential different subset of cases handled. We thus decided to write in details
 all problems that a perfect tool should solve and we aim at building precise
@@ -307,7 +313,10 @@ that are the problem and not the code?
 
 \paragraph{Relations between parameters} Parameters search can get incredibly
 complex if we think even beyond complex data structures, with for example
-functions. Also an object can be constructed by a function.
+functions or indexes. Also an object can be constructed by a function. Because
+of that, if we knew which parameters were involved in an operation that raised a
+type error, we couldn't be sure that changing just these parameters would
+improve things.
 
 \paragraph{Working but unfit types} A parameter of a certain type might not
 generate type errors but make the search much more difficult. If we have for
@@ -339,7 +348,10 @@ ends up working for different parameters types than the ones it was designed for
 we are facing the oracle problem~\cite{barr2015oracle}.
 
 \paragraph{Infinite search spaces} Many statically-typed languages have bounded
-types by the number of bits.
+types by the number of bits. On the other hand many dynamically-typed languages
+have infinite range for integer for example, or seemingly with an infinite value
+being implemented by default. Having information on whether we are approaching a
+condition becomes essential then.
 
 \paragraph{Dynamic data structures}~\cite{lakhotia2008handling} uses in part a
 set of constraint solving rules. Works on object-oriented software
@@ -367,15 +379,23 @@ Our tool started as a fork of CAVM~\cite{Kim2017ts} which is a search based test
 data generation tool for C. It uses the Alternating Variable Method and can
 generate complex data structures.
 
-Our tool handles primitive types and lists (that can contain lists and different
-types). It basically encloses the AVM search catching type and index errors.
+Our tool handles primitive types and lists (that can contain different types and
+lists). It basically encloses the AVM search catching type and index errors.
 
 \subsection{Philosophy}
 \label{philosophy}
 
-Ideally we wanted to have a tool the most universal possible, so without Python
-specific features. We focused on primitive type (e.g.\ integers, strings) with
-lists to have a complex data structure.
+Ideally we wanted to have a tool the most universal possible, i.e.\ without
+Python specific features. We focused on primitive type (e.g.\ integers, strings)
+with lists to have a complex data structure. Lists can have elements of
+different types, even other lists.
+
+When an index error occurs, because we don't have a distance function to tell
+use how close we are to the index asked, we are mocking list parameters. We
+decorate the access method and bundle with the index error exception the index
+asked. We did this to avoid growing wrong lists in the dark because of a lack of
+feedback. It also mean that when a index error occurs we are going to grow the
+list instead of reducing another parameter if it is used as the index.
 
 \subsection{Technical difficulties}
 \label{tech_difficulties}
@@ -415,6 +435,10 @@ testing for dynamically-typed languages, we will now plan on what to do next.
 
 Studying the time spent on trying invalid types would give some hints on whether
 it is viable to extend the search for very complex structures such as objects.
+If we were to use decorator with a catch for exceptions for all objects methods,
+it would be interesting to compute the overhead. This overhead would depend on
+whether the SUT uses exceptions a lot as the overhead of the catch will be
+noticeable only when an exception occurs.
 
 % Evaluate with libraries that take as input only primitive types, for example
 % math libraries.
@@ -424,6 +448,9 @@ it is viable to extend the search for very complex structures such as objects.
 
 This section aims at giving clues to go beyond random testing and use previous
 work done on dynamic languages.
+
+Data-flow would allow us to know what parameters are involved up to a type
+error, which would reduce the space of search.
 
 A lot of work has been done on regression
 testing~\cite{gligoric2011smutant,haupt2011type,steinert2010continuous,yoo2012regression}.
