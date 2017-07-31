@@ -99,7 +99,7 @@
     - instrument (try/except through decorator) + mock (index)
 - [ ] keep old type if the error doesn't change
 
-- [ ] Send email to ask in which direction I should go
+- [X] Send email to ask in which direction I should go
     - Do something completely random that works eventually, and write all the problematics that can be addressed in the
       future
-    - Narrow down the problem to have a good tool
+    - ~~Narrow down the problem to have a good tool~~

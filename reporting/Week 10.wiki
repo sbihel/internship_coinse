@@ -1,1 +1,93 @@
+= Bibliography =
+- TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
 
+== AVM ==
+
+== SBSE ==
+- REDO [[http://onlinelibrary.wiley.com/doi/10.1002/stvr.294/epdf|mcminn2004search]] Search-based Software Test Data Generation: A Survey
+    - Test Data Generation Survey.
+    - Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+- TODO [[http://mcminn.io/publications/tr1.pdf|mcminn2007iguana]] IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+== Dynamically-Typed Languages ==
+
+== Object-Oriented Languages / Complex Structures ==
+
+== Random Testing ==
+
+== Mutation Testing ==
+
+== Mock Testing ==
+
+== Test Data ==
+
+
+= Journal =
+== Things Done ==
+- work on report
+
+== Blocking Points ==
+- Instrumenting `is`
+    - Does it make sense? because it's testing UID
+- Is TypeError a real bug or are we using the wrong type?
+- Using floats instead of ints means that we need a way to have exact values for floats
+
+- started to throw ideas for the report
+
+- add exception to `__getitem__` and `__setitem__` for parameters that implement them
+    - need to be subclassable
+
+- Growing a parameter is different between a string, a list, a tuple, a dict.... But they all have similar `IndexError`
+
+- relations between parameters, (e.g. we're removing types that don't have `__iter__` if the error says the parameter is
+  not subscriptable but in reality it could be a parameter that is applying this index to the other parameter...)
+
+
+== Planned work ==
+- [.] Instrument Python code
+    - [ ] Other comparators handled: Is | ~~IsNot~~ | In | ~~NotIn~~
+        - does instrumenting `is` makes sense for other than `None`?
+        - no distance for `is` or `in`
+    - [ ] Other boolean like `__notzero__`
+    - [ ] add distance for: "iterator | simple `if` on wether a `StopIteration` is raised, no distance"
+
+- [.] Convert the global tool for Python
+    - [ ] find a better way for `Process` sandbox, a virgin process is enough but maybe not possible because of shared
+          queue
+    - [ ] divide at some point for `float`
+        - or see it the other way around, use `int` only and then divide if needed
+    - [o] lists
+        - [X] param indexing with depth
+        - [X] recursive search
+        - [ ] implement it in the type search
+        - assumes there is a first element
+            - in the search, try there for the empty list?
+            - [ ] manage the case of empty list
+        - [ ] handle slices
+        - [ ] direction of growth
+    - [ ] positive integers
+
+- [.] AVM to find correct type of python function
+    - [X] Make it possible for cavm to execute the python function
+    - [ ] More than just types, e.g. a negative integer
+    - [ ] primitive types: ~~*bool*~~, numeric (~~*int*~~, ~~*float*~~, complex), iterator, sequence (*list*, tuple, range), ~~*str*~~, binary
+          sequence (bytes, bytearray, memoryview), set (set, frozenset), dict, context manager
+          other built-in types: modules, classes, functions, methods, ...
+        - ignore 'Truth Value Testing'?
+        - keep a list of tested types for each param?
+    - [ ] Get information from TypeError
+    - [ ] Floats seem to stay between 0 and 1
+    - [ ] try False and True to avoid problems with e.g. empty list
+    - [ ] try [] and with an element to know the type of the list, for now we'll put always the same type in lists
+        - an error can occur after because of the size being too small
+    - [ ] `TypeError` detection after
+
+- [ ] Read the code of RuTeG
+
+- [ ] Static analysis of dynamically typed languages
+
+- [X] Get info to delete types that don't fit
+    - But what if the parameter can be of another type?
+- [ ] Instrument subscriptable objects accesses to know when we are approaching
+    - instrument (try/except through decorator) + mock (index)
+- [ ] keep old type if the error doesn't change
