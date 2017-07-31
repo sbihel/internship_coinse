@@ -39,7 +39,7 @@
 \hrulefill%
 
 \begin{center}
-  \displaydate{startdate} --- \displaydate{enddate}
+  \displaydate{startdate} -- \displaydate{enddate}
 \end{center}
 
 \vfill
@@ -231,7 +231,9 @@ example, and methods only return either null or another mock object.
 \label{related_research}
 
 \todo{find better formatting}
+
 \todo{write actual sentences}
+
 \begin{itemize}
   % no \citeauthor or \citet with llncs :(
   \item Ducasse et al.~\cite{ducasse2011challenges} have already exposed
@@ -249,12 +251,29 @@ example, and methods only return either null or another mock object.
     types and test coverage.
 
   \item RuTeG~\cite{mairhofer2011search} (Ruby Test case Generator) is a Ruby
-    tool that uses search-based techniques. It uses a genetic algorithm and a
-    \textit{selecting data generator}. It is not fully automated as it requires
-    the user to provide different generators for specific problems for complex
-    data. It makes heavy usage of the ability of Ruby to mock every objects
-    including primitives. The authors claim that the tool performs better than
-    fully random generation.  \todo{more details}
+    tool that targets the dynamic and object-oriented features of Ruby (not just
+    dynamic types). They test a method of a class, doing the construction of an
+    instance of that class, calling some other methods to change the state of
+    the instance, and then call the method under test. Due to a lack of tools
+    and for simplicity, they do code (line) coverage.
+
+    The center of the tool is the test case generator. For the inputs it uses
+    generators, basic types (numbers, strings, objects, arrays) are supported
+    natively but for the rest it is to the user to write problem-specific
+    generators. That means that this tool is not fully automated. The test case
+    generator uses a Genetic Algorithm for each step of the test unit
+    (constructor, method call sequence, method under test). In general, an
+    individual will be composed of type patterns and according data generators.
+
+    Before starting the search, the source code is analyzed statically to reduce
+    the search space. Method names and argument lists information will be
+    collected as well as methods called on arguments. It will identify methods
+    impacting the state of the instance and also identify control structures
+    (this is possible because they ignore run-time code addition).  It also
+    disqualify inappropriate types. The authors claim that the tool performs
+    better than fully random generation.
+
+    % (this study: complex data types, but in the end it's the user that has to write such complex generator)
 
     % hard to know clearly what they achieved with these student projects
   \item SpLATS~\cite{splats} (SpLATS Lazy Automated Test System) is another tool
@@ -363,6 +382,8 @@ because having the right size is problematic. Some OO languages also don't have
 constructors like Smalltalk. Use fault-based testing~\cite{hayes1994testing}
 (collection of information on whether classes of software faults exist).
 
+\todo{rewrite}
+
 \paragraph{Dynamic insertion of code} All tools exclude from their scope
 functions that execute code contained in a string (e.g.\ `\texttt{eval}' in
 Python). One argument given is that it is not a commonly used feature.
@@ -371,6 +392,9 @@ actual detect branch forks, one problem arise. We cannot have unique identifiers
 for instrumentation function calls as the code might be inserted or executed
 multiple time.
 
+\todo{call sequences}
+
+\todo{``reuseable set of generators can be built up much as described in~\cite{feldt2002biomimetic}''}
 
 \section{Contribution}
 \label{contribution}
@@ -440,6 +464,11 @@ it would be interesting to compute the overhead. This overhead would depend on
 whether the SUT uses exceptions a lot as the overhead of the catch will be
 noticeable only when an exception occurs.
 
+\todo{we should focus on random testing that works eventually for every
+situation before writing smarter tools}
+Overall we should focus at first on a simple tool that works for every
+situation.
+
 % Evaluate with libraries that take as input only primitive types, for example
 % math libraries.
 % In practice, to find real world code to test that does not use objects we could
@@ -449,8 +478,12 @@ noticeable only when an exception occurs.
 This section aims at giving clues to go beyond random testing and use previous
 work done on dynamic languages.
 
-Data-flow would allow us to know what parameters are involved up to a type
-error, which would reduce the space of search.
+Data-flow and fine grained runtime monitoring. Data-flow would allow us to know
+which parameters have an impact on other variables or even on other parameters.
+This would be useful if we knew which variables were involved in an operation
+resulting in an error. Which in turn would require wrap every elementary
+operation. We would have to use a wrapper because in the case of a language like
+Python we cannot override basic types.
 
 A lot of work has been done on regression
 testing~\cite{gligoric2011smutant,haupt2011type,steinert2010continuous,yoo2012regression}.
@@ -458,9 +491,9 @@ Of course this is quite the opposite of the goal of automated test generation.
 Having a starting set of inputs that we know are valid greatly reduces our main
 problem of finding appropriate types. But our work on automated testing can be
 used as an extension and enhancement of existing, hand-written tests.
-Furthermore, at least for big projects, there should be preexisting tests for
-functionalities testing. Knowledge can also be extracted by watching the whole
-program with the graph of function calls.
+For big projects, there should be preexisting tests for functionalities testing.
+Knowledge can also be extracted by watching the whole program with the graph of
+function calls.
 
 Some languages like Python have type annotations. We could ask the programmer to
 precise with annotations when parameters should be custom types and assume other
@@ -484,7 +517,7 @@ future works.
 
 
 \section*{Acknowledgment}
-Thanks to Shin Yoo and the whole COINSE team that has been very friendly and
+Thanks to Shin Yoo and the whole COINSE team for being so friendly and
 welcoming. Thanks also to KAIST for hosting me.
 
 This internship was supported by the R\'egion Bretagne with the \textit{Jeune
