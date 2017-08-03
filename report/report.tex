@@ -236,12 +236,12 @@ details which are explained in the next section. They also propose milestones
 that we will discuss in Section~\ref{futureworks}. They propose static analysis
 and dynamic type collection for type inference, regression from existing
 instances, hand-written contracts for automated instances generation, and
-sandboxing to protect the environment. In the end their work is different than
+sandboxing to protect the environment. In the end their work is different to
 ours because we are primarily focusing on basic dynamic types and test coverage.
 
 \paragraph{} RuTeG~\cite{mairhofer2011search} (Ruby Test case Generator) is a
 Ruby tool that targets the dynamic and object-oriented features of Ruby (not
-just dynamic types). The do object testing and do code (line) coverage.
+just dynamic types). They do object testing and do code (line) coverage.
 
 The center of the tool is the test case generator. For the inputs it uses
 generators, basic types (numbers, strings, objects, arrays) are supported
@@ -296,9 +296,9 @@ maybe a potential different subset of cases handled. We thus decided to write in
 details all problems that a perfect tool should solve and we aim at building
 precise foundations to build on to in future works. As each of these projects
 have different problematics depending on the language they are tackling, we aim
-to identify some generalization for dynamically-typed languages. We use the tool
-that we wrote to illustrate with examples the challenges seen in the next
-section.
+to identify some generalization for dynamically-typed languages.% We use the tool
+% that we wrote to illustrate with examples the challenges seen in the next
+% section.
 
 
 \section{Challenges}
@@ -326,15 +326,15 @@ improve things.
 
 \paragraph{Working but unfit types} A parameter of a certain type might not
 generate type errors but make the search much more difficult. If we have for
-example a floating-point number where an integer then simply approaching a round
-value might be difficult.
+example a floating-point number where an integer is enought then simply
+approaching a round value might be difficult.
 
 % \paragraph{Number of parameters} You can sometimes pass an arbitrary number of
 % parameters to a function. In the end it's just a list...
 
 \paragraph{Difficulty to reduce domain of possible types} A parameter can have
 different types for different branches. Because of that, it is not possible to
-reduce the possible types of a parameter for all branches. But it is possible
+reduce the possible types of a parameter for all branches but it is possible
 for one branch.
 
 \subsection{The bigger picture}
@@ -350,12 +350,13 @@ challenges in static languages become even more problematic.
 \paragraph{Execution} Controlling the environment of the SUT is essential for
 performance and security purposes. Two problems arise. The first one is for the
 language environment, such as primitives, as it can be modified dynamically by
-programs. The second problem is about identifying side effects.
+programs. The second problem is about identifying side effects to block them and
+protect the external environment.
 
 \paragraph{Understanding results} In a case outside of simple code coverage, you
 might want to analyze the result and judge whether it is right. If a function
 ends up working for different parameters types than the ones it was designed for
-we are facing the oracle problem~\cite{barr2015oracle}.
+we are facing the automated oracle problem~\cite{barr2015oracle}.
 
 \paragraph{Infinite search spaces} Many statically-typed languages have bounded
 types by the number of bits. On the other hand many dynamically-typed languages
