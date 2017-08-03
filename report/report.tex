@@ -15,8 +15,8 @@
 \newdate{startdate}{15}{05}{2017}
 \newdate{enddate}{04}{08}{2017}
 
-\title{Automated Test Data Generation for Dynamically Typed Programming Languages}
-\titlerunning{Automated Test Data Generation for Dynamically Typed Programming Languages}
+\title{Challenges in Automated Test Data Generation for Dynamically Typed Programming Languages}
+\titlerunning{Challenges in Automated Test Data Generation for Dynamically Typed Programming Languages}
 
 \author{Simon Bihel\inst{1, 2}}
 \authorrunning{Simon Bihel}
@@ -71,16 +71,8 @@ exposes them and tries to give some clues on how to tackle them.
 %
 \newpage
 
-\todo{title should contain `search-based'?}
 
-\todo{need more coherence overall}
-
-\todo{references are messy}
-
-\todo{lack of illustration, there's just text}
 \section{Introduction}
-\todo{need more details to be smoother}
-
 Testing is an essential part of software development. Especially due to the lack
 of formal specifications, tests are the pillars to ensure well-behavior of
 programs, be it lack of crash or coherent results. Various metrics exist to
@@ -111,7 +103,7 @@ community will have to tackle in order to have a fully automated test generator
 for dynamically-typed languages and more generally dynamic languages.
 
 
-\section{Related Works}
+\section{Background}
 \label{relatedwork}
 
 While a lot of work has been put in automated testing for statically typed
@@ -169,7 +161,6 @@ sure that every parts of it are tested. We use a metric called \textit{code
 coverage} to evaluate the scope of tests.
 
 %BRANCH COVERAGE
-\todo{better formatting for list of questions}
 Multiple coverage criteria exist: Has every function been called? Has each
 statement been executed? Has each boolean sub-expression been evaluated both to
 true and false? Has each branch of each control structure been executed? That
@@ -179,8 +170,9 @@ It is part of standards~\cite{BSI98,RTCA92} for quality assurance and safety.
 In our case of dynamically-typed languages, working on code coverage seems to be
 a good idea to make sure we are exploring every parts and functionalities of a
 function as they might be dependent on the type of parameters. This particular
-problem of exploring every branch of a function is called test data generation
-and one way to tackle this is to use search-based techniques.
+problem of exploring every branch of a function is called test data generation.
+One way to tackle this problem of finding certain values to pass tests is to use
+search-based techniques.
 
 \subsection{Search-based software engineering}
 \label{sbse}
@@ -201,7 +193,7 @@ coverage~\cite{mcminn2004search,lakhotia2007multi,mcminn2007iguana,Kim2017ts}.
 
 One example is the Alternating Variable Method~\cite{mcminn2016avmf} that
 consists in playing with one parameter until no positive change is seen, and
-then focus on another parameter. \todo{more details}
+then focus on another parameter.
 
 % it is justified to use in our case because we cannot deduce everything from
 % static analysis or symbolic execution
@@ -225,92 +217,86 @@ used~\cite{mackinnon2000endo,taneja2010moda,freeman2004mock,tillmann2006mock}.
 In the most extreme use cases they can be used to test only function calls for
 example, and methods only return either null or another mock object.
 
-\todo{feels empty}
+\paragraph{Object testing} can be done by creating an instance, modifying its
+state and then measuring some metrics. To modify the state of the instance a
+method call sequence is defined. After that, a final method call is done and
+metrics like code coverage or method calls can be measured.
 
 \subsection{Research works}
 \label{related_research}
 
-\todo{find better formatting}
+% no \citeauthor or \citet with llncs :(
+\paragraph{} Ducasse et al.~\cite{ducasse2011challenges} have already exposed
+challenges and milestones in random testing of dynamically-typed languages.
+They are talking about random testing but with a white-box approach. They also
+bundle object-oriented with dynamic types problems. The challenges they
+highlight are instance generation and execution, error identification, and
+result understanding. Our work exposes more challenges as well as more practical
+details which are explained in the next section. They also propose milestones
+that we will discuss in Section~\ref{futureworks}. They propose static analysis
+and dynamic type collection for type inference, regression from existing
+instances, hand-written contracts for automated instances generation, and
+sandboxing to protect the environment. In the end their work is different than
+ours because we are primarily focusing on basic dynamic types and test coverage.
 
-\todo{write actual sentences}
+\paragraph{} RuTeG~\cite{mairhofer2011search} (Ruby Test case Generator) is a
+Ruby tool that targets the dynamic and object-oriented features of Ruby (not
+just dynamic types). The do object testing and do code (line) coverage.
 
-\begin{itemize}
-  % no \citeauthor or \citet with llncs :(
-  \item Ducasse et al.~\cite{ducasse2011challenges} have already exposed
-    challenges and milestones in random testing of dynamically-typed languages.
-    They are talking about random testing but with a white-box approach. They
-    also bundle object-oriented with dynamic types problems. The challenges they
-    highlight are instance generation and execution, error identification, and
-    result understanding. Our work exposes more challenges as well as more
-    practical details which are explained in the next section. They also propose
-    milestones that we will discuss in Section~\ref{futureworks}. They propose
-    static analysis and dynamic type collection for type inference, regression
-    from existing instances, hand-written contracts for automated instances
-    generation, and sandboxing to protect the environment. In the end their work
-    is different than ours because we are primarily focusing on basic dynamic
-    types and test coverage.
+The center of the tool is the test case generator. For the inputs it uses
+generators, basic types (numbers, strings, objects, arrays) are supported
+natively but for the rest it is to the user to write problem-specific
+generators. That means that this tool is not fully automated (but the authors
+hint at the re-usability of a set of generators~\cite{feldt2002biomimetic}). The
+test case generator uses a Genetic Algorithm for each step of the test unit
+(constructor, method call sequence, method under test). In general, an
+individual will be composed of type patterns and according data generators.
 
-  \item RuTeG~\cite{mairhofer2011search} (Ruby Test case Generator) is a Ruby
-    tool that targets the dynamic and object-oriented features of Ruby (not just
-    dynamic types). They test a method of a class, doing the construction of an
-    instance of that class, calling some other methods to change the state of
-    the instance, and then call the method under test. Due to a lack of tools
-    and for simplicity, they do code (line) coverage.
+Before starting the search, the source code is analyzed statically to reduce the
+search space. Method names and argument lists information will be collected as
+well as methods called on arguments. It will identify methods impacting the
+state of the instance and also identify control structures (this is possible
+because they ignore run-time code addition). It also disqualify inappropriate
+types. The authors claim that the tool performs better than fully random
+generation.
 
-    The center of the tool is the test case generator. For the inputs it uses
-    generators, basic types (numbers, strings, objects, arrays) are supported
-    natively but for the rest it is to the user to write problem-specific
-    generators. That means that this tool is not fully automated. The test case
-    generator uses a Genetic Algorithm for each step of the test unit
-    (constructor, method call sequence, method under test). In general, an
-    individual will be composed of type patterns and according data generators.
+% (this study: complex data types, but in the end it's the user that has to
+% write such complex generator)
 
-    Before starting the search, the source code is analyzed statically to reduce
-    the search space. Method names and argument lists information will be
-    collected as well as methods called on arguments. It will identify methods
-    impacting the state of the instance and also identify control structures
-    (this is possible because they ignore run-time code addition).  It also
-    disqualify inappropriate types. The authors claim that the tool performs
-    better than fully random generation.
+% hard to know clearly what they achieved with these student projects
+\paragraph{} SpLATS~\cite{splats} (SpLATS Lazy Automated Test System) is another
+tool for Ruby that was written during a student project. It has a lazy approach
+and uses mock objects for that purpose. It will collect information at runtime
+on which methods should be implemented and will output most of the time other
+mock objects or else primitives.
 
-    % (this study: complex data types, but in the end it's the user that has to write such complex generator)
+Only methods of classes constructed by standard methods can be tested. It is
+assumed that there are no side effects and no interactions with the environment.
+No inheritance. No blocks or variable sized arguments.
 
-    % hard to know clearly what they achieved with these student projects
-  \item SpLATS~\cite{splats} (SpLATS Lazy Automated Test System) is another tool
-    for Ruby that was written during a student project. It has a lazy approach
-    and uses mock objects for that purpose. It will collect information at
-    runtime on which methods should be implemented and will output most of the
-    time other mock objects or else primitives.
+It constructs all possible sets of arguments with only nil or mocks. When
+implementing a method, it will return either nil or another mock object.
 
-    Tests only methods of classes constructed by standard methods. No side
-    effects and no interactions with the environment. No inheritance. No blocks
-    or variable sized arguments.
+\paragraph{} SPLAT~\cite{splat} (Simple Python Lazy Automated Tester) is a tool
+for Python with a lazy approach and is another student project. It generates
+unit tests for instruction coverage.  It works with bytecode and uses what is
+called meta-parameters in Python to make mock objects. It uses a unit tests
+library to have automatically generated assertions on the return value or
+exceptions raised. It also gather structure information from the bytecode.
 
-    Construct all possible sets of arguments with only nil or mock. When
-    implementing a method, it will return either nil or another mock object.
+The tool does not handle internal methods (those surrounded by `\texttt{\_\_}')
+which means it cannot capture primitive operations (e.g.\ addition). It also
+excludes string predicates but points to a study~\cite{alshraideh2006search}
+addressing string predicates with a search-based approach. It does not seem to
+generate recursive parameters like lists of lists.
 
-  \item SPLAT~\cite{splat} (Simple Python Lazy Automated Tester) is a tool for
-    Python with a lazy approach and is another student project. It generates
-    unit tests for instruction coverage.  It works with bytecode and uses what
-    is called meta-parameters in Python to make mock objects. It uses a unit
-    tests library to have automatically generated assertions on the return value
-    or exceptions raised. It also gather structure information from the
-    bytecode.
-
-    Excludes internal methods (those surrounded by `\texttt{\_\_}') which means
-    it cannot capture primitive operations. Excludes string predicates but
-    points to a study~\cite{alshraideh2006search} addressing string predicates
-    with a search-based approach. Does not seem to generate recursive parameters
-    like lists of lists.
-\end{itemize}
-
-These works were published at least 5 years ago but without follow-up. While
-writing our tool, we realised there was hardly anything new but maybe a
-potential different subset of cases handled. We thus decided to write in details
-all problems that a perfect tool should solve and we aim at building precise
-foundations to build on to in future works. As each of these projects have
-different problematics depending on the language they are tackling, we aim to
-identify some generalization for dynamically-typed languages. We use the tool
+\paragraph{} These works were published at least 5 years ago but without
+follow-up. While writing our tool, we realised there was hardly anything new but
+maybe a potential different subset of cases handled. We thus decided to write in
+details all problems that a perfect tool should solve and we aim at building
+precise foundations to build on to in future works. As each of these projects
+have different problematics depending on the language they are tackling, we aim
+to identify some generalization for dynamically-typed languages. We use the tool
 that we wrote to illustrate with examples the challenges seen in the next
 section.
 
@@ -324,11 +310,12 @@ can be added to an already long list of challenges for non dynamic languages
 testing~\cite{mcminn2011search}.
 
 \subsection{Pure dynamic types problems}
-\todo{non consistent paragraph formating with previous sections}
 \paragraph{Type errors} One big limitation for an automated code coverage tester
 is the inability to identify crashes. As we are trying to find coherent types
 for parameters, if a type error is raised, how can we know it is the parameters
-that are the problem and not the code?
+that are the problem and not the code? It distances us from the fault-based
+testing approach which is especially useful for object-oriented programming
+systems~\cite{hayes1994testing}.
 
 \paragraph{Relations between parameters} Parameters search can get incredibly
 complex if we think even beyond complex data structures, with for example
@@ -360,6 +347,10 @@ challenges in static languages become even more problematic.
 % method.
 % no constructors in smalltalk -> close to what we do with just lists? methods?
 % still falls in our handling of type errors?
+\paragraph{Execution} Controlling the environment of the SUT is essential for
+performance and security purposes. Two problems arise. The first one is for the
+language environment, such as primitives, as it can be modified dynamically by
+programs. The second problem is about identifying side effects.
 
 \paragraph{Understanding results} In a case outside of simple code coverage, you
 might want to analyze the result and judge whether it is right. If a function
@@ -372,29 +363,30 @@ have infinite range for integer for example, or seemingly with an infinite value
 being implemented by default. Having information on whether we are approaching a
 condition becomes essential then.
 
-\paragraph{Dynamic data structures}~\cite{lakhotia2008handling} uses in part a
-set of constraint solving rules. Works on object-oriented software
-testing~\cite{tonella2004evolutionary,ciupa2008artoo} use available instances to
-generate new instances, even for statically-typed languages. Arcuri and
-Yao~\cite{arcuri2008search} focused only on containers (e.g.\ lists, trees,
-etc.) which are data structures designed to store any arbitrary type of data
-because having the right size is problematic. Some OO languages also don't have
-constructors like Smalltalk. Use fault-based testing~\cite{hayes1994testing}
-(collection of information on whether classes of software faults exist).
+\paragraph{Dynamic data structures} Generating data structures of variable size
+has been the subject of many works.~\cite{lakhotia2008handling} uses both a
+search-based approach and a set of constraint solving rules. Tools for
+object-oriented software testing
+like~\cite{tonella2004evolutionary,ciupa2008artoo} use available instances to
+generate new instances. Arcuri and Yao~\cite{arcuri2008search} focused only on
+containers (e.g.\ lists, trees, etc.) which are data structures designed to
+store any arbitrary type of data, using search-based techniques. Addressing this
+problem is also important for variable sized arguments as they can be seen as
+lists or dictionaries/hash tables.
 
-\todo{rewrite}
+\paragraph{Dynamic insertion of code} All tools that we have seen exclude from
+their scope functions that execute code contained in a string (e.g.\
+`\texttt{eval}' in Python). One argument given is that it is not a commonly used
+feature.  Nonetheless in the case of branch coverage, as we rely on
+instrumentation to actual detect branch forks, one problem arise. We cannot have
+unique identifiers for instrumentation function calls as the code might be
+inserted or executed multiple time.
 
-\paragraph{Dynamic insertion of code} All tools exclude from their scope
-functions that execute code contained in a string (e.g.\ `\texttt{eval}' in
-Python). One argument given is that it is not a commonly used feature.
-Nonetheless in the case of branch coverage, as we rely on instrumentation to
-actual detect branch forks, one problem arise. We cannot have unique identifiers
-for instrumentation function calls as the code might be inserted or executed
-multiple time.
+\paragraph{Objects state} Manipulating the state of an object instance is
+difficult but necessary for testing. We have seen that it is generally done by
+having a list of method calls. With languages that don't have constructors like
+Smalltalk is it even impossible to do pure random testing.
 
-\todo{call sequences}
-
-\todo{``reuseable set of generators can be built up much as described in~\cite{feldt2002biomimetic}''}
 
 \section{Contribution}
 \label{contribution}
@@ -464,10 +456,13 @@ it would be interesting to compute the overhead. This overhead would depend on
 whether the SUT uses exceptions a lot as the overhead of the catch will be
 noticeable only when an exception occurs.
 
-\todo{we should focus on random testing that works eventually for every
-situation before writing smarter tools}
+We could compare our approach to~\cite{poulding2017automated} which uses the
+multiple-dispatch feature of Julia (methods have different implementation to
+handle different types for parameters).
+
 Overall we should focus at first on a simple tool that works for every
-situation.
+situation. The actual search for values is secondary, but still needed to be
+sure we explore every needed type for arguments.
 
 % Evaluate with libraries that take as input only primitive types, for example
 % math libraries.
@@ -500,11 +495,12 @@ precise with annotations when parameters should be custom types and assume other
 parameters are primitives.
 
 On-the-fly type analysis~\cite{chambers1991iterative} and
-verification~\cite{chugh2012nested}.
+verification~\cite{chugh2012nested} for dynamically-typed object-oriented
+languages are possible but don't make sense without valid inputs.
 
-Type Sensitive Application of Mutation Operators for Dynamically Typed Programs.
-``definition of mutants is performed at run-time when type information is
-available''~\cite{bottaci2010type}
+Genetic Algorithms are possible as~\cite{bottaci2010type} shows how to produce
+mutants for dynamically-typed languages by generating mutants using types
+information available at run-time.
 
 
 \section{Conclusion}
