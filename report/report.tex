@@ -62,7 +62,7 @@ automated test data generation tools. Most of the existing tools and approaches
 depend critically on static and explicit types, which makes it hard to port any
 of them over to dynamically typed languages. Some projects have tried to tackle
 the challenges of dynamically-typed languages or complex data structure but
-without much success and without generating momemtum in the research community.
+without much success and without generating momentum in the research community.
 After trying to develop a better tool than existing ones we were able to refine
 what problems are in the way of automated test data generation. This paper
 exposes them and tries to give some clues on how to tackle them.
@@ -96,9 +96,9 @@ tool can detect as well as a heavier cost due to tries with wrongly typed
 inputs.
 
 While developing an automated test generator for Python (presented in
-Section~\ref{contribution}) we came to the conclusion that we wouldn't have come
-further than existing works (explained in Section~\ref{relatedwork}). Thus we
-decide to write down (Section~\ref{challenges}) the challenges that the
+Section~\ref{contribution}) we came to the conclusion that we would not have
+come further than existing works (explained in Section~\ref{relatedwork}). Thus
+we decide to write down (Section~\ref{challenges}) the challenges that the
 community will have to tackle in order to have a fully automated test generator
 for dynamically-typed languages and more generally dynamic languages.
 
@@ -321,7 +321,7 @@ systems~\cite{hayes1994testing}.
 complex if we think even beyond complex data structures, with for example
 functions or indexes. Also an object can be constructed by a function. Because
 of that, if we knew which parameters were involved in an operation that raised a
-type error, we couldn't be sure that changing just these parameters would
+type error, we could not be sure that changing just these parameters would
 improve things.
 
 \paragraph{Working but unfit types} A parameter of a certain type might not
@@ -385,7 +385,7 @@ inserted or executed multiple time.
 
 \paragraph{Objects state} Manipulating the state of an object instance is
 difficult but necessary for testing. We have seen that it is generally done by
-having a list of method calls. With languages that don't have constructors like
+having a list of method calls. With languages that do not have constructors like
 Smalltalk is it even impossible to do pure random testing.
 
 
@@ -407,7 +407,7 @@ Python specific features. We focused on primitive type (e.g.\ integers, strings)
 with lists to have a complex data structure. Lists can have elements of
 different types, even other lists.
 
-When an index error occurs, because we don't have a distance function to tell
+When an index error occurs, because we do not have a distance function to tell
 use how close we are to the index asked, we are mocking list parameters. We
 decorate the access method and bundle with the index error exception the index
 asked. We did this to avoid growing wrong lists in the dark because of a lack of
@@ -497,7 +497,7 @@ parameters are primitives.
 
 On-the-fly type analysis~\cite{chambers1991iterative} and
 verification~\cite{chugh2012nested} for dynamically-typed object-oriented
-languages are possible but don't make sense without valid inputs.
+languages are possible but do not make sense without valid inputs.
 
 Genetic Algorithms are possible as~\cite{bottaci2010type} shows how to produce
 mutants for dynamically-typed languages by generating mutants using types
