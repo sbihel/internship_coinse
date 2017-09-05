@@ -1,6 +1,6 @@
 \documentclass{beamer}
 
-\graphicspath{{../images/}}
+\graphicspath{{img/}}
 
 \usepackage{appendixnumberbeamer}
 
@@ -8,6 +8,8 @@
 \newdate{defensedate}{06}{09}{2017}
 \newdate{startdate}{15}{05}{2017}
 \newdate{enddate}{04}{08}{2017}
+
+\usepackage{minted}
 
 \usetheme[sectionpage=progressbar,subsectionpage=progressbar,numbering=fraction,
           progressbar=foot]{metropolis}
@@ -39,12 +41,48 @@
 \section{Automated Test Data Generation}
 
 \begin{frame}{Tests are important}
+  Tests are essentials to avoid bugs.
+  \begin{itemize}
+    \item .
+  \end{itemize}
+
+  But writing them by hand is:
+  \begin{itemize}
+    \item time-consuming,
+    \item error-prone.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Test Data Generation}
+  Generate inputs to satisfy some metrics.
+
+  Many criteria:
+  \begin{itemize}
+    \item code coverage,
+    \item
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}[fragile]{Pathwise tests}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{minted}{c}
+void test(char x,char y) {
+  if (x=='x')
+    printf(" ");
+  else
+    printf("  ");
+  if (x==y)
+    printf("Equal");
+  else
+    printf("Not Equal");
+}
+      \end{minted}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[height=\textheight]{Control_flow_graph}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 
@@ -60,10 +98,35 @@
 \end{frame}
 
 
-% \section{Challenges}
+\section{Challenges}
+
+\begin{frame}{Dynamic types problems}
+  \begin{itemize}
+    \item Type errors
+    \item Relations between parameters
+    \item Working but unfit types
+    \item Difficulty to reduce domain of possible types
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Bigger picture problems}
+  Dynamic languages usually have other paradigms
+
+  \begin{itemize}
+    \item Controlling the environment
+    \item Understanding results
+    \item Infinite search spaces
+    \item Dynamic data structures
+    \item Dynamic insertion of code
+    \item Objects state
+  \end{itemize}
+\end{frame}
 
 
 \section*{Conclusion}
+
+\begin{frame}{Conclusion}
+\end{frame}
 
 
 \end{document}
