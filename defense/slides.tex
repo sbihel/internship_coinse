@@ -40,7 +40,7 @@
 
 \section{Automated Test Data Generation}
 
-\begin{frame}{Tests are important}
+\begin{frame}{Motivation of Automated Test Generation}
   Tests are essentials. % to avoid bugs.
   % \begin{itemize}
   %   \item .
@@ -85,12 +85,29 @@ int test(char x, char y) {
   \end{columns}
 \end{frame}
 
-\begin{frame}{Search-Based Testing}
-  \begin{enumerate}
-    \item Inject code (instrument) in the SUT to measure metrics.
-    \item Execute the SUT and get feedback.
-    \item Modify inputs and re-execute the SUT.
-  \end{enumerate}
+\begin{frame}[fragile]{Search-Based Testing}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{enumerate}
+        \item Inject code (instrumentation) in the SUT to measure metrics.
+        \item Execute the SUT and get feedback.
+        \item Modify inputs and re-execute the SUT.
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{minted}[escapeinside=||]{c}
+int test(char x, char y) {
+  if (|\colorbox{lime}{branchid(0, Eq(x, y))}|)
+    printf("Equal");
+  else
+    printf("Not Equal");
+  return 1;
+}
+      \end{minted}
+    \end{column}
+  \end{columns}
+
+  \vfill
 
   Search algorithms include: hill climbing, genetic algorithms\dots
 \end{frame}
@@ -111,36 +128,40 @@ int test(char x, char y) {
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Big points of CAVM}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \begin{enumerate}
-        \item Instrumentation of the source code to wrap conditions.
-        \item Get distance to pass conditions.
-        \item Use evolutionary techniques to tweak inputs.
-      \end{enumerate}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \begin{minted}[escapeinside=||]{c}
-int test(char x, char y) {
-  if (|\colorbox{lime}{branchid(0, Eq(x, y))}|)
-    printf("Equal");
-  else
-    printf("Not Equal");
-  return 1;
-}
-      \end{minted}
-    \end{column}
-  \end{columns}
+% \begin{frame}[fragile]{Big points of CAVM}
+%   \begin{columns}
+%     \begin{column}{0.5\textwidth}
+%       \begin{enumerate}
+%         \item Instrumentation of the source code to wrap conditions.
+%         \item Get distance to pass conditions.
+%         \item Use evolutionary techniques to tweak inputs.
+%       \end{enumerate}
+%     \end{column}
+%     \begin{column}{0.5\textwidth}
+%       \begin{minted}[escapeinside=||]{c}
+% int test(char x, char y) {
+%   if (|\colorbox{lime}{branchid(0, Eq(x, y))}|)
+%     printf("Equal");
+%   else
+%     printf("Not Equal");
+%   return 1;
+% }
+%       \end{minted}
+%     \end{column}
+%   \end{columns}
+% \end{frame}
+
+\begin{frame}{Big points of the tool}
+  \begin{itemize}
+    \item When a type error occurs, change type of a random parameter.
+
+    \item Additional instrumentation on element access to know which list should be expanded.
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Big points of the python tools}
-  Additional instrumentation on element access to know which element is problematic in list.
-\end{frame}
+% \begin{frame}{Identifiable Errors}
 
-\begin{frame}{Identifiable Errors}
-
-\end{frame}
+% \end{frame}
 
 
 \section{Challenges}
@@ -177,6 +198,9 @@ int test(char x, char y) {
 \section*{Conclusion}
 
 \begin{frame}{Conclusion}
+  \begin{itemize}
+    \item Wrote a generic prototype with minimal use of dynamic magic.
+  \end{itemize}
   \begin{itemize}
     \item Search-based approach only seems unfeasible.
   \end{itemize}
