@@ -54,9 +54,9 @@
 \end{frame}
 
 \begin{frame}{Test Data Generation}
-  Generate inputs to satisfy some metrics for the System Under Test (e.g.\ a function, a class\dots).
+  Generate a set of inputs to satisfy some metrics for the System Under Test (e.g.\ a function, a class\dots).
 
-  Examples of code coverage criteria:
+  Code coverage reduce the likelihood of crashes. Examples of criteria:
   \begin{itemize}
     \item statement coverage,
     \item function coverage,
@@ -64,7 +64,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Pathwise tests}
+\begin{frame}[fragile]{Execution Branches}
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{minted}{c}
@@ -85,7 +85,7 @@ int test(char x, char y) {
   \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{Search-Based Testing}
+\begin{frame}[fragile]{Search-Based Testing for Branch Coverage}
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{enumerate}
@@ -95,9 +95,9 @@ int test(char x, char y) {
       \end{enumerate}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \begin{minted}[escapeinside=||]{c}
+      \begin{minted}{c}
 int test(char x, char y) {
-  if (|\colorbox{lime}{branchid(0, Eq(x, y))}|)
+  if (branchid(0, Eq(x, y)))
     printf("Equal");
   else
     printf("Not Equal");
@@ -119,6 +119,7 @@ int test(char x, char y) {
   \begin{itemize}
     \item Python tool
     \item Started as a fork of CAVM (a tool for \texttt{C})
+    \item Alternating Variable Method to modify inputs values
   \end{itemize}
 
   Targets:
@@ -149,14 +150,22 @@ int test(char x, char y) {
 %       \end{minted}
 %     \end{column}
 %   \end{columns}
+%   \begin{itemize}
+%     \item Alternating Variable Method to modify inputs
+%   \end{itemize}
 % \end{frame}
 
 \begin{frame}{Big points of the tool}
+  No information on statement raising error.
   \begin{itemize}
     \item When a type error occurs, change type of a random parameter.
 
     \item Additional instrumentation on element access to know which list should be expanded.
   \end{itemize}
+
+  \vfill
+
+  Another automated tool for dynamic languages without impact because of the narrow test cases
 \end{frame}
 
 % \begin{frame}{Identifiable Errors}
@@ -167,30 +176,42 @@ int test(char x, char y) {
 \section{Challenges}
 
 \begin{frame}{Dynamic types problems}
+  Many problems
   \begin{itemize}
     \item Detect type errors bugs
-    % \item Relations between parameters
+    \item Relations between parameters
     \item Working but unfit types (e.g.\ float instead of int)
     \item Difficulty to reduce domain of possible types
   \end{itemize}
+
+  \vfill
+
+  Often buried in other features of languages
 \end{frame}
 
 \begin{frame}{Bigger picture problems}
-  Dynamic languages usually have other paradigms
+  Dynamic languages usually have other paradigms that complexify input space
 
   \begin{itemize}
-    \item Controlling the environment
-    \item Understanding results
-    \item Infinite search spaces
     \item Dynamic data structures
     \item Dynamic insertion of code
     \item Objects state
+    \item Infinite search spaces
+    \item Understanding the results
+    \item Controlling the environment
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Future work}
+  Experiment on libraries with simple inputs like math libraries.
+
+  \vfill
+
+  Need of additional methods like:
   \begin{itemize}
-    \item Need of additional methods like a first round of static analysis.
+    \item first round of static analysis (e.g. gather information on possible types),
+    \item use of existing test suites,
+    \item \dots
   \end{itemize}
 \end{frame}
 
@@ -200,9 +221,8 @@ int test(char x, char y) {
 \begin{frame}{Conclusion}
   \begin{itemize}
     \item Wrote a generic prototype with minimal use of dynamic magic.
-  \end{itemize}
-  \begin{itemize}
-    \item Search-based approach only seems unfeasible.
+    \item Identified challenges toward a generic tool.
+    \item Automation alone seems unfeasible.
   \end{itemize}
 \end{frame}
 
