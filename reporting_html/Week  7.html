@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Week  7</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<div id="Bibliography"><h1 id="Bibliography">Bibliography</h1></div>
+<ul>
+<li>
+TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
+
+</ul>
+
+<div id="Bibliography-AVM"><h2 id="AVM">AVM</h2></div>
+
+<div id="Bibliography-SBSE"><h2 id="SBSE">SBSE</h2></div>
+<ul>
+<li>
+REDO <a href="http:&#47;&#47;onlinelibrary.wiley.com&#47;doi&#47;10.1002&#47;stvr.294&#47;epdf">mcminn2004search</a> Search-based Software Test Data Generation: A Survey
+
+<ul>
+<li>
+Test Data Generation Survey.
+
+<li>
+Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+
+</ul>
+<li>
+TODO <a href="http:&#47;&#47;mcminn.io&#47;publications&#47;tr1.pdf">mcminn2007iguana</a> IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+</ul>
+
+<div id="Bibliography-Dynamically-Typed Languages"><h2 id="Dynamically-Typed Languages">Dynamically-Typed Languages</h2></div>
+<ul>
+<li>
+<a href="http:&#47;&#47;ieeexplore.ieee.org&#47;document&#47;7437005&#47;#full-text-section">wibowo2015unit</a> Unit Test Code Generator for Lua Programming Language
+
+<ul>
+<li>
+GA on binary strings
+
+<li>
+doesn't talk about how they fill tables
+
+</ul>
+</ul>
+
+<div id="Bibliography-Object-Oriented Languages &#47; Complex Structures"><h2 id="Object-Oriented Languages &#47; Complex Structures">Object-Oriented Languages / Complex Structures</h2></div>
+
+<div id="Bibliography-Random Testing"><h2 id="Random Testing">Random Testing</h2></div>
+
+<div id="Bibliography-Mutation Testing"><h2 id="Mutation Testing">Mutation Testing</h2></div>
+
+<div id="Bibliography-Mock Testing"><h2 id="Mock Testing">Mock Testing</h2></div>
+
+<div id="Bibliography-Test Data"><h2 id="Test Data">Test Data</h2></div>
+
+
+<div id="Journal"><h1 id="Journal">Journal</h1></div>
+<div id="Journal-Things Done"><h2 id="Things Done">Things Done</h2></div>
+<ul>
+<li>
+work on pavm
+
+</ul>
+
+<ul>
+<li>
+explored multiple ways for the god-mock-class
+
+<ul>
+<li>
+the <code>unittest.mock</code> mocks the behavior of functions so not really useful
+
+<li>
+<a href="https:&#47;&#47;stackoverflow.com&#47;a&#47;9942607&#47;4991081">https://stackoverflow.com/a/9942607/4991081</a>
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Ok, it's not possible
+
+<ul>
+<li>
+if a method isn't found it doesn't mean it won't be found in the other object
+
+<li>
+without inheritance, can't import all magic methods
+
+<li>
+mock objects always return mock stuff and they can't implement all magic methods
+
+<li>
+can't modify builtin TypeError, we can add attributes but can't redefine methods
+
+<li>
+excepthook is just a global try/except
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Meeting with 유 교수님
+
+<ul>
+<li>
+mocks for 'general types' to get wether the parameter should be numerical, string...
+
+</ul>
+</ul>
+
+<p>
+-
+</p>
+<pre python>
+        tic = time.clock()
+        test_proc.start()
+        test_proc.join()
+        toc = time.clock()
+        print('TIME:', toc - tic)
+</pre>
+<ul>
+<li>
+with and without mocking/wrapping on case1 (no use of lists)
+<pre>
+ ~ $ cat /tmp/log_time | awk '{ sum += $1; n++ } END { if (n &gt; 0) print sum / n; }'
+0.00120997
+</pre>
+<pre>
+ ~ $ cat /tmp/log_time2 | awk '{ sum += $1; n++ } END { if (n &gt; 0) print sum / n; }'
+0.00116239
+</pre>
+
+</ul>
+
+<ul>
+<li>
+Seminar (준희)
+
+<ul>
+<li>
+Experimental Assessment of Software Metrics Using Automated Refactoring
+
+</ul>
+<li>
+Seminar (진한)
+
+</ul>
+
+<div id="Journal-Blocking Points"><h2 id="Blocking Points">Blocking Points</h2></div>
+<ul>
+<li>
+<del>Returns</del> Exits in switch cases in function calls
+
+<ul>
+<li>
+underlying problem, one <code>if</code> for multiple cases
+<pre c>
+switch (a) {
+    case 1: huge_problem();
+    case 2: break;
+</pre>
+
+</ul>
+<li>
+Instrumenting <code>is</code>
+
+<ul>
+<li>
+Does it make sense? because it's testing UID
+
+</ul>
+<li>
+Is TypeError a real bug or are we using the wrong type?
+
+<li>
+TypeError during type AVM
+
+<ul>
+<li>
+redo all branches?
+<pre python>
+def test(a):
+    if a:
+        a + 1
+</pre>
+
+</ul>
+<li>
+Using floats instead of ints means that we need a way to have exact values for floats
+
+</ul>
+
+<ul>
+<li>
+started to throw ideas for the report
+
+</ul>
+
+<ul>
+<li>
+add exception to <code>__getitem__</code> and <code>__setitem__</code> for parameters that implement them
+
+<ul>
+<li>
+need to be subclassable
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Growing a parameter is different between a string, a list, a tuple, a dict.... But they all have similar <code>IndexError</code>
+
+</ul>
+
+
+<div id="Journal-Planned work"><h2 id="Planned work">Planned work</h2></div>
+<ul>
+<li class="done1">
+Instrument Python code
+
+<ul>
+<li class="done0">
+Other comparators handled: Is | <del>IsNot</del> | In | <del>NotIn</del>
+
+<ul>
+<li>
+does instrumenting <code>is</code> makes sense for other than <code>None</code>?
+
+<li>
+no distance for <code>is</code> or <code>in</code>
+
+</ul>
+<li class="done0">
+Other boolean like <code>__notzero__</code>
+
+<li class="done0">
+add distance for: "iterator | simple <code>if</code> on wether a <code>StopIteration</code> is raised, no distance"
+
+</ul>
+</ul>
+
+<ul>
+<li class="done1">
+Convert the global tool for Python
+
+<ul>
+<li class="done0">
+find a better way for <code>Process</code> sandbox, a virgin process is enough but maybe not possible because of shared
+          queue
+
+<li class="done0">
+divide at some point for <code>float</code>
+
+<ul>
+<li>
+or see it the other way around, use <code>int</code> only and then divide if needed
+
+</ul>
+<li class="done2">
+lists
+
+<ul>
+<li class="done4">
+param indexing with depth
+
+<li class="done4">
+recursive search
+
+<li class="done0">
+implement it in the type search
+
+<li>
+assumes there is a first element
+
+<ul>
+<li>
+in the search, try there for the empty list?
+
+<li class="done0">
+manage the case of empty list
+
+</ul>
+<li class="done0">
+handle slices
+
+</ul>
+<li class="done4">
+changed from passing around the elem to passing around the index, but now I can't access elements in lists
+
+<ul>
+<li class="done4">
+use a tuple of indexes
+
+<li class="done4">
+subclass of <code>list</code> for individual.vector to accept tuple of indexes
+
+</ul>
+<li class="done0">
+positive integers
+
+<li class="done0">
+Type inference in AVM
+
+<ul>
+<li>
+again you can't be sure of which parameter is the source
+
+<li>
+the idea is to detect stuff like idexing
+
+</ul>
+</ul>
+</ul>
+
+<ul>
+<li class="done1">
+AVM to find correct type of python function
+
+<ul>
+<li class="done4">
+Make it possible for cavm to execute the python function
+
+<li class="done0">
+More than just types, e.g. a negative integer
+
+<li class="done0">
+primitive types: <del><span id="Journal-Planned work-bool"></span><strong id="bool">bool</strong></del>, numeric (<del><span id="Journal-Planned work-int"></span><strong id="int">int</strong></del>, <del><span id="Journal-Planned work-float"></span><strong id="float">float</strong></del>, complex), iterator, sequence (<span id="Journal-Planned work-list"></span><strong id="list">list</strong>, tuple, range), <del><span id="Journal-Planned work-str"></span><strong id="str">str</strong></del>, binary
+          sequence (bytes, bytearray, memoryview), set (set, frozenset), dict, context manager
+          other built-in types: modules, classes, functions, methods, ...
+
+<ul>
+<li>
+ignore 'Truth Value Testing'?
+
+<li>
+keep a list of tested types for each param?
+
+</ul>
+<li class="done0">
+Get information from TypeError
+
+<li class="done0">
+Floats seem to stay between 0 and 1
+
+<li class="done0">
+try False and True to avoid problems with e.g. empty list
+
+<li class="done0">
+try [] and with an element to know the type of the list, for now we'll put always the same type in lists
+
+<ul>
+<li>
+an error can occur after because of the size being too small
+
+</ul>
+<li class="done0">
+<code>TypeError</code> detection after
+
+<li class="done0">
+method decorator to detect which parameter is at cause
+
+</ul>
+</ul>
+
+<ul>
+<li class="done0">
+Read the code of RuTeG
+
+<li class="done0">
+<del>Read about GodelTest</del>
+
+</ul>
+
+<ul>
+<li class="done0">
+Static analysis of dynamically typed languages
+
+</ul>
+
+<ul>
+<li class="done0">
+<del>Use mock objects</del>
+
+<ul>
+<li class="done0">
+<del>god-class providing methods of a primitive type</del>
+
+<li class="done0">
+<del>the mock class is a wrapper for an attribute and redirects all calls to that attribute</del>
+
+</ul>
+</ul>
+
+<ul>
+<li class="done0">
+Instrument (list) accesses to now when we are approaching
+
+<ul>
+<li>
+instrument? mock?
+
+<li>
+instrument (try/except through decorator) + mock (index)
+
+</ul>
+<li class="done0">
+Get info to delete types that don't fit
+
+<ul>
+<li>
+still the problem of knowing with parameter is at cause
+
+<li>
+do things at random
+
+</ul>
+<li class="done1">
+Type changes in AVM too
+
+<ul>
+<li class="done0">
+type changes in <code>search</code>
+
+<ul>
+<li class="done0">
+catch exceptions and change parameters
+
+<li class="done0">
+redo previous branches
+
+</ul>
+<li class="done4">
+remove <code>search_type</code>
+
+<li class="done0">
+keep old type if the error doesn't change
+
+</ul>
+</ul>
+
+</body>
+</html>

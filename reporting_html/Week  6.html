@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Week  6</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<div id="Bibliography"><h1 id="Bibliography">Bibliography</h1></div>
+<ul>
+<li>
+TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
+
+</ul>
+
+<div id="Bibliography-AVM"><h2 id="AVM">AVM</h2></div>
+
+<div id="Bibliography-SBSE"><h2 id="SBSE">SBSE</h2></div>
+<ul>
+<li>
+REDO <a href="http:&#47;&#47;onlinelibrary.wiley.com&#47;doi&#47;10.1002&#47;stvr.294&#47;epdf">mcminn2004search</a> Search-based Software Test Data Generation: A Survey
+
+<ul>
+<li>
+Test Data Generation Survey.
+
+<li>
+Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+
+</ul>
+<li>
+TODO <a href="http:&#47;&#47;mcminn.io&#47;publications&#47;tr1.pdf">mcminn2007iguana</a> IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+</ul>
+
+<div id="Bibliography-Dynamically-Typed Languages"><h2 id="Dynamically-Typed Languages">Dynamically-Typed Languages</h2></div>
+
+<div id="Bibliography-Object-Oriented Languages &#47; Complex Structures"><h2 id="Object-Oriented Languages &#47; Complex Structures">Object-Oriented Languages / Complex Structures</h2></div>
+
+<div id="Bibliography-Random Testing"><h2 id="Random Testing">Random Testing</h2></div>
+
+<div id="Bibliography-Mutation Testing"><h2 id="Mutation Testing">Mutation Testing</h2></div>
+
+<div id="Bibliography-Mock Testing"><h2 id="Mock Testing">Mock Testing</h2></div>
+
+<div id="Bibliography-Test Data"><h2 id="Test Data">Test Data</h2></div>
+<ul>
+<li>
+TODO <a href="http:&#47;&#47;www.simonpoulding.net&#47;papers&#47;issre_2013_preprint.pdf">feldt2013finding</a> Finding Test Data with Specific Properties via Metaheuristic Search
+
+<li>
+TODO <a href="http:&#47;&#47;ieeexplore.ieee.org&#47;document&#47;1702369&#47;#full-text-section">miller1976automatic</a> Automatic generation of floating-point test data
+
+</ul>
+
+
+<div id="Journal"><h1 id="Journal">Journal</h1></div>
+<div id="Journal-Things Done"><h2 id="Things Done">Things Done</h2></div>
+<ul>
+<li>
+work on pavm
+
+</ul>
+
+<ul>
+<li>
+thoughts on AVM for types
+
+<ul>
+<li>
+finding type isn't a good goal because all types can fit with duck typing
+
+<li>
+mock objects seem to be the solution (?)
+
+<ul>
+<li>
+When do you stop in 'recursive' mock objects?
+
+<li>
+for each method that is missing you have to re-executing the whole function, maybe we need automatically
+          laziness
+
+<ul>
+<li>
+the execution could be different if the method exists in some edge cases
+
+</ul>
+<li>
+Nothing useful in the related work
+
+</ul>
+<li>
+How do you know that a type error isn't actually a bug?
+
+<ul>
+<li>
+if every type generates it?
+
+<li>
+what is 'every type'?
+
+<li>
+with mock objects you can implement it and miss the bug
+
+<li>
+what if the function is supposed to raise a TypeError in some cases?
+
+</ul>
+<li>
+try every possible combination of types?
+
+<ul>
+<li>
+no that's stupid we're doing AVM
+
+</ul>
+<li>
+one AVM for types then one AVM for values? doesn't seem possible
+
+</ul>
+<li>
+Integrated a random choice of type in the AVM
+
+<ul>
+<li>
+type is changed only when there is a <code>TypeError</code>
+
+<li>
+has a list of supported/usable types
+
+<li>
+AVM for types
+
+<ul>
+<li>
+if the error message changes, change variable
+
+<li>
+might have a <code>TypeError</code> later on because <code>if False:</code> instead of <code>if 0:</code>
+
+</ul>
+</ul>
+</ul>
+
+<ul>
+<li>
+Can we write something for small programs, have a list of all possible types and try them
+
+</ul>
+
+<ul>
+<li>
+Maybe it could be interesting to use complex structures/types only when there are annotations
+
+<ul>
+<li>
+(I think I've read that having lots of classes is a code smell, so annotating complex parameters isn't a big
+      overhead?)
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Discussion with Shin Yoo
+
+<ul>
+<li>
+focus on primitives and lists (with multiple types)
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Started a skeletal of report
+
+</ul>
+
+<ul>
+<li>
+What about class decorators for parameters to allow some sort of lazyness or dynamic dataflow analysis?
+
+<ul>
+<li>
+Why not, and if there is some <code>TypeError</code> with certain types, I can change some parameters of the same types and see
+      the impact
+
+</ul>
+</ul>
+
+<ul>
+<li>
+Abstract
+
+<ul>
+<li>
+Despite popular usage, most of the dynamically typed languages still lack automated test data generation tools.
+      Most of the existing tools and approaches depend critically on static and explicit types, which makes it hard to
+      port any of them over to dynamically typed languages. In this paper we present a search-based test data generation
+      tool, NAME, which focuses on primitive types and lists of Python. NAME not only searches for test input values but
+      also for appropriate types for each input argument. We evaluate NAME based on the structural coverage it achieves,
+      the cost of the type search, and the overhead for the execution of the function under test. We further discuss the
+      future of automated testing for dynamic and object-oriented languages based on our experience.
+
+</ul>
+</ul>
+
+<ul>
+<li>
+can't subclass <code>bool</code> and <code>None</code> (can be the same for a user defined class)
+<pre python>
+def wrapper_custom_type(type_name, *, position=None):
+    def new_instance(*args):
+        if type_name == bool:
+            class CustomType():
+                def __init__(self):
+                    self.__name__ = bool
+        else:
+            class CustomType(type_name):
+                def __init__(self, *argss):
+                    super().__init__(*argss)
+                    self.ident = position
+                    self.__name__ = type_name
+        return CustomType(*args)
+    return new_instance
+</pre>
+<pre python>
+&gt;&gt;&gt; b = custom_types.wrapper_custom_type(bool, position=3)()
+&gt;&gt;&gt; type(b)
+&lt;class 'custom_types.wrapper_custom_type.&lt;locals&gt;.new_instance.&lt;locals&gt;.CustomType'&gt;
+&gt;&gt;&gt; isinstance(b, bool)
+False
+&gt;&gt;&gt; a = custom_types.wrapper_custom_type(int, position=3)()
+&gt;&gt;&gt; a
+0
+&gt;&gt;&gt; type(a)
+&lt;class 'custom_types.wrapper_custom_type.&lt;locals&gt;.new_instance.&lt;locals&gt;.CustomType'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; isinstance(a, int)
+True
+</pre>
+
+<li>
+<code>bool</code> is subclass of <code>int</code>
+<pre python>
+&gt;&gt;&gt; inspect.getmro(bool)
+(&lt;class 'bool'&gt;, &lt;class 'int'&gt;, &lt;class 'object'&gt;)
+&gt;&gt;&gt; inspect.getmro(type(None))
+(&lt;class 'NoneType'&gt;, &lt;class 'object'&gt;)
+</pre>
+
+<li>
+can't add information to all exceptions
+
+<li>
+<del><span id="Journal-Things Done-no way to know which object is the source of type error"></span><strong id="no way to know which object is the source of type error">no way to know which object is the source of type error</strong></del>
+
+<li>
+<del><span id="Journal-Things Done-change name of class"></span><strong id="change name of class">change name of class</strong></del>
+
+</ul>
+
+<ul>
+<li>
+Seminar (정주)
+
+<ul>
+<li>
+On the correlation between size and metric validity
+
+<li>
+Size has strong correlation with other metrics
+
+</ul>
+<li>
+Seminar (성민)
+
+<ul>
+<li>
+Data-driven Approach, k-Nearest Neighbor, train/val/test splits
+
+</ul>
+</ul>
+
+<ul>
+<li>
+use <a href="https:&#47;&#47;github.com&#47;clarete&#47;forbiddenfruit">forbiddenfruit</a> which means the project is limited to CPython
+
+<ul>
+<li>
+still can't modify type of... type, what I want to do is modify the base exception but seems unfeasable?
+
+</ul>
+</ul>
+
+<div id="Journal-Blocking Points"><h2 id="Blocking Points">Blocking Points</h2></div>
+<ul>
+<li>
+~~Instrumenting <code>for</code>~~
+
+<ul>
+<li>
+~~handle <code>in</code> comparator~~ instrumented iterator
+
+</ul>
+<li>
+Instrumenting <code>is</code>
+
+<ul>
+<li>
+Does it make sense? because it's testing UID
+
+</ul>
+<li>
+Is TypeError a real bug or are we using the wrong type?
+
+<li>
+TypeError during type AVM
+
+<ul>
+<li>
+redo all branches?
+<pre python>
+def test(a):
+    if a:
+        a + 1
+</pre>
+
+</ul>
+<li>
+Using floats instead of ints means that we need a way to have exact values for floats
+
+</ul>
+
+<ul>
+<li>
+<a href="https:&#47;&#47;github.com&#47;Qix-&#47;better-exceptions">better_exceptions</a> (just for printing?) (also similar <a href="https:&#47;&#47;github.com&#47;skorokithakis&#47;tbvaccine&#47;">tbvaccine</a>)
+
+</ul>
+
+<ul>
+<li>
+you can only access variables from frames of function call
+
+</ul>
+
+
+<div id="Journal-Planned work"><h2 id="Planned work">Planned work</h2></div>
+<ul>
+<li class="done1">
+Instrument Python code
+
+<ul>
+<li class="done0">
+Other comparators handled: Is | <del>IsNot</del> | In | <del>NotIn</del>
+
+<ul>
+<li>
+does instrumenting <code>is</code> makes sense for other than <code>None</code>?
+
+<li>
+no distance for <code>is</code> or <code>in</code>
+
+</ul>
+<li class="done0">
+Other boolean like <code>__notzero__</code>
+
+<li class="done4">
+Branching handled
+
+<ul>
+<li class="done4">
+<code>while</code>
+
+<ul>
+<li class="done4">
+<code>while</code>
+
+<li class="done4">
+<code>else</code>
+
+</ul>
+<li class="done4">
+<code>for</code>
+
+<ul>
+<li class="done4">
+<code>for</code> ~~(add decorator to <code>__iter__</code> <a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;1420484&#47;how-can-i-add-a-decorator-to-an-existing-object-method">https://stackoverflow.com/questions/1420484/how-can-i-add-a-decorator-to-an-existing-object-method</a>?)~~ iterator wrapping the original
+
+<li class="done4">
+<code>else</code>
+
+<li>
+simple <code>if</code> on wether a <code>StopIteration</code> is raised, no distance
+
+</ul>
+</ul>
+</ul>
+</ul>
+
+<ul>
+<li class="done1">
+Convert the global tool for Python
+
+<ul>
+<li class="done0">
+find a better way for <code>Process</code> sandbox, a virgin process is enough but maybe not possible because of shared
+          queue
+
+<li class="done0">
+divide at some point for <code>float</code>
+
+<ul>
+<li>
+or see it the other way around, use <code>int</code> only and then divide if needed
+
+</ul>
+<li class="done2">
+lists
+
+<ul>
+<li class="done4">
+param indexing with depth
+
+<li class="done4">
+recursive search
+
+<li class="done0">
+implement it in the type search
+
+<li>
+assumes there is a first element
+
+<ul>
+<li>
+in the search, try there for the empty list?
+
+</ul>
+</ul>
+<li class="done4">
+changed from passing around the elem to passing around the index, but now I can't access elements in lists
+
+<ul>
+<li class="done4">
+use a tuple of indexes
+
+<li class="done4">
+subclass of <code>list</code> for individual.vector to accept tuple of indexes
+
+</ul>
+<li class="done0">
+positive integers
+
+<li class="done0">
+Type inference in AVM
+
+<ul>
+<li>
+again you can't be sure of which parameter is the source
+
+<li>
+the idea is to detect stuff like idexing
+
+</ul>
+</ul>
+</ul>
+
+<ul>
+<li class="done1">
+AVM to find correct type of python function
+
+<ul>
+<li class="done4">
+Make it possible for cavm to execute the python function
+
+<li class="done0">
+More than just types, e.g. a negative integer
+
+<li class="done0">
+primitive types: <del><span id="Journal-Planned work-bool"></span><strong id="bool">bool</strong></del>, numeric (<del><span id="Journal-Planned work-int"></span><strong id="int">int</strong></del>, <del><span id="Journal-Planned work-float"></span><strong id="float">float</strong></del>, complex), iterator, sequence (<span id="Journal-Planned work-list"></span><strong id="list">list</strong>, tuple, range), <del><span id="Journal-Planned work-str"></span><strong id="str">str</strong></del>, binary
+          sequence (bytes, bytearray, memoryview), set (set, frozenset), dict, context manager
+          other built-in types: modules, classes, functions, methods, ...
+
+<ul>
+<li>
+ignore 'Truth Value Testing'?
+
+<li>
+keep a list of tested types for each param?
+
+</ul>
+<li class="done0">
+Get information from TypeError
+
+<li class="done0">
+Floats seem to stay between 0 and 1
+
+<li class="done0">
+try False and True to avoid problems with e.g. empty list
+
+<li class="done0">
+try [] and with an element to know the type of the list, for now we'll put always the same type in lists
+
+<ul>
+<li>
+an error can occur after because of the size being too small
+
+</ul>
+<li class="done0">
+<code>TypeError</code> detection after
+
+<li class="done0">
+method decorator to detect which parameter is at cause
+
+</ul>
+</ul>
+
+<ul>
+<li class="done4">
+CAVM <code>switch</code> <code>default</code> <code>if</code>, the False branch will never be taken thus wasting computing
+
+<ul>
+<li>
+underlying problem, one <code>if</code> for multiple cases
+
+</ul>
+<li class="done0">
+~~Better integration of the first round for code generation for <code>switch</code> in CAVM~~
+
+<ul>
+<li>
+<del>Better file names</del>
+
+</ul>
+</ul>
+
+<ul>
+<li class="done0">
+Read the code of RuTeG
+
+<li class="done0">
+Read about GodelTest
+
+</ul>
+
+<ul>
+<li class="done4">
+Submit abstract (2017-06-30 Fri) <a href="https:&#47;&#47;easychair.org&#47;conferences&#47;?conf=ensrennesditm12017">https://easychair.org/conferences/?conf=ensrennesditm12017</a>
+
+</ul>
+
+<ul>
+<li class="done0">
+Static analysis of dynamically typed languages
+
+</ul>
+
+</body>
+</html>

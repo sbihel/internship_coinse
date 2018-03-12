@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Week  4</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<div id="Bibliography"><h1 id="Bibliography">Bibliography</h1></div>
+<ul>
+<li>
+TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
+
+</ul>
+
+<div id="Bibliography-AVM"><h2 id="AVM">AVM</h2></div>
+
+<div id="Bibliography-SBSE"><h2 id="SBSE">SBSE</h2></div>
+<ul>
+<li>
+REDO <a href="http:&#47;&#47;onlinelibrary.wiley.com&#47;doi&#47;10.1002&#47;stvr.294&#47;epdf">mcminn2004search</a> Search-based Software Test Data Generation: A Survey
+
+<ul>
+<li>
+Test Data Generation Survey.
+
+<li>
+Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+
+</ul>
+<li>
+TODO <a href="http:&#47;&#47;mcminn.io&#47;publications&#47;tr1.pdf">mcminn2007iguana</a> IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+</ul>
+
+<div id="Bibliography-Dynamically-Typed Languages"><h2 id="Dynamically-Typed Languages">Dynamically-Typed Languages</h2></div>
+<ul>
+<li>
+TODO <a href="http:&#47;&#47;www.hpi.uni-potsdam.de&#47;hirschfeld&#47;publications&#47;media&#47;HauptPerscheidHirschfeld_2011_TypeHarvestingAPracticalApproachToObtainingTypingInformationInDynamicProgrammingLanguages_AcmDL.pdf">haupt2011type</a> Type Harvesting A Practical Approach to Obtaining Typing Information in Dynamic Programming Languages
+
+<ul>
+<li>
+"exploiting unit tests to automatically obtain type information for a code base"
+
+</ul>
+<li>
+TODO <a href="http:&#47;&#47;cseweb.ucsd.edu&#47;~rchugh&#47;research&#47;popl12-nested.pdf">chugh2012nested</a> (<a href="https:&#47;&#47;arxiv.org&#47;pdf&#47;1112.4106.pdf">chugh2012dependent</a>) Nested Refinements: A Logic for Duck Typing
+
+<ul>
+<li>
+"System D coordinates SMT-based logical implication and syntactic subtyping to automatically typecheck"
+
+</ul>
+</ul>
+
+<div id="Bibliography-Object-Oriented Languages &#47; Complex Structures"><h2 id="Object-Oriented Languages &#47; Complex Structures">Object-Oriented Languages / Complex Structures</h2></div>
+
+<div id="Bibliography-Random Testing"><h2 id="Random Testing">Random Testing</h2></div>
+
+<div id="Bibliography-Mutation Testing"><h2 id="Mutation Testing">Mutation Testing</h2></div>
+
+
+<div id="Journal"><h1 id="Journal">Journal</h1></div>
+<div id="Journal-Things Done"><h2 id="Things Done">Things Done</h2></div>
+<ul>
+<li>
+Trying to adapt cavm for Python
+
+<ul>
+<li>
+the infrastucture seems to work
+
+</ul>
+<li>
+<code>switch</code> instrumentation for CAVM
+
+<ul>
+<li>
+2 rounds
+
+</ul>
+<li>
+thoughts on AVM for types
+
+<ul>
+<li>
+finding type isn't a good goal because all types can fit with duck typing
+
+<li>
+mock objects seem to be the solution (?)
+
+<ul>
+<li>
+When do you stop in 'recursive' mock objects?
+
+</ul>
+</ul>
+</ul>
+
+<div id="Journal-Blocking Points"><h2 id="Blocking Points">Blocking Points</h2></div>
+<ul>
+<li>
+<del>The queue used by Process, the program puts in it its traces?</del>
+
+<ul>
+<li>
+it's the 'trace' of <code>branch_distance</code>
+
+</ul>
+<li>
+Returns in switch cases in function calls
+
+<li>
+<del>Add child to parent</del>
+
+<ul>
+<li>
+2 passes, first one to print additional if, second is the original
+
+<li>
+~~TreeTransform -&gt; requires to use SemaConsumer instead of ASTConsumer (<a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;30451485&#47;how-to-clone-or-create-an-ast-stmt-node-of-clang">SO</a>)~~
+
+</ul>
+<li>
+Instrumenting <code>for</code>
+
+<ul>
+<li>
+handle <code>in</code> comparator
+
+</ul>
+</ul>
+
+<div id="Journal-Planned work"><h2 id="Planned work">Planned work</h2></div>
+<ul>
+<li class="done1">
+Instrument Python code
+
+<ul>
+<li class="done2">
+Instrument code
+
+<ul>
+<li class="done2">
+Modify code
+
+<ul>
+<li class="done4">
+Basic comparators handled: <del>Eq</del> | <del>NotEq</del> | <del>Lt</del> | <del>ltE</del> | <del>Gt</del> | <del>GtE</del>
+
+<li class="done0">
+Other comparators handled: Is | <del>IsNot</del> | In | NotIn
+
+<li class="done4">
+Use methods instead <code>l_and</code> e.g.
+
+<li class="done2">
+Branching handled
+
+<ul>
+<li class="done4">
+<code>if</code>
+
+<ul>
+<li class="done4">
+<code>if</code>
+
+<li class="done4">
+<code>else</code>
+
+</ul>
+<li class="done2">
+<code>while</code>
+
+<ul>
+<li class="done4">
+<code>while</code>
+
+<li class="done0">
+<code>else</code>
+
+</ul>
+<li class="done0">
+<code>for</code>
+
+<ul>
+<li class="done0">
+<code>for</code> (add decorator to <code>__iter__</code> <a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;1420484&#47;how-can-i-add-a-decorator-to-an-existing-object-method">https://stackoverflow.com/questions/1420484/how-can-i-add-a-decorator-to-an-existing-object-method</a> ?)
+
+<li class="done0">
+<code>else</code>
+
+<li class="done0">
+<code>AsyncFor</code>
+
+</ul>
+</ul>
+</ul>
+<li class="done4">
+Write <code>branch_distance</code> functions
+
+<li class="done2">
+Generate the dependence map
+
+<ul>
+<li class="done4">
+<code>stmtid</code> generation
+
+<li class="done4">
+dependence assignment
+
+<li class="done0">
+Make the <code>ControlDependency cfg</code> more global as in the c version
+
+</ul>
+<li class="done0">
+Figure out the instrument of a single function (or if we need it)
+
+<ul>
+<li>
+Yes we need it to have less details
+
+</ul>
+</ul>
+</ul>
+<li class="done3">
+Convert the global tool for Python
+
+<ul>
+<li class="done4">
+import file from name (and the file might be in another dir)
+
+<ul>
+<li>
+~~Note that the dir needs to be a module (has a <code>__init__.py</code> file)~~
+
+<li>
+Using <code>importlib.util</code> so we'll assume this project is Python 3.5+ <a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;67631&#47;how-to-import-a-module-given-the-full-path">https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path</a>
+
+</ul>
+<li class="done4">
+carry around function name string
+
+<li class="done4">
+always use 'sandbox' (i.e. execute function in <code>Process</code>) to avoid importing the SUT in the tool
+
+<li class="done4">
+add <code>branch_distance.py</code> to the dir of the tested file
+
+<li class="done0">
+find a better way for <code>Process</code> sandbox, a virgin process is enough but maybe not possible because of shared
+          queue
+
+</ul>
+<li class="done1">
+AVM to find correct type of python function
+
+<ul>
+<li class="done4">
+Make it possible for cavm to execute the python function
+
+<li class="done0">
+More than just types, e.g. a negative integer
+
+<li class="done0">
+primitive types: bool, numeric (int, float, complex), iterator, sequence (list, tuple, range), str, binary
+          sequence (bytes, bytearray, memoryview), set (set, frozenset), dict, context manager
+          other built-in types: modules, classes, functions, methods, ...
+
+<ul>
+<li>
+ignore 'Truth Value Testing'?
+
+<li>
+keep a list of tested types for each param?
+
+</ul>
+<li class="done0">
+Get information from TypeError
+
+</ul>
+<li class="done0">
+Better integration of the first round for code generation for <code>switch</code> in CAVM
+
+<ul>
+<li>
+Better file names
+
+</ul>
+</ul>
+
+</body>
+</html>

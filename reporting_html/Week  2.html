@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Week  2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<div id="Bibliography"><h1 id="Bibliography">Bibliography</h1></div>
+<ul>
+<li>
+TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C
+
+</ul>
+
+<div id="Bibliography-AVM"><h2 id="AVM">AVM</h2></div>
+<ul>
+<li>
+TODO <a href="http:&#47;&#47;eprints.whiterose.ac.uk&#47;104204&#47;1&#47;c43.pdf">mcminn2016avmf</a> AVMf: An open-source framework and implementation of the alternating variable method
+
+</ul>
+
+<div id="Bibliography-SBSE"><h2 id="SBSE">SBSE</h2></div>
+<ul>
+<li>
+REDO <a href="http:&#47;&#47;citeseerx.ist.psu.edu&#47;viewdoc&#47;download?doi=10.1.1.122.33&amp;rep=rep1&amp;type=pdf">mcminn2004search</a> Search-based Software Test Data Generation: A Survey
+
+<ul>
+<li>
+Test Data Generation Survey.
+
+<li>
+Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+
+</ul>
+<li>
+TODO <a href="http:&#47;&#47;mcminn.io&#47;publications&#47;tr1.pdf">mcminn2007iguana</a> IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+</ul>
+
+<div id="Bibliography-Dynamically-Typed Languages"><h2 id="Dynamically-Typed Languages">Dynamically-Typed Languages</h2></div>
+<ul>
+<li>
+<a href="https:&#47;&#47;hal.inria.fr&#47;file&#47;index&#47;docid&#47;614769&#47;filename&#47;Duca11a-IWST11-RandomTesting.pdf">ducasse2011challenges</a> Challenges to support automated random testing for dynamically typed languages
+
+<ul>
+<li>
+Nice list of challenges
+
+<li>
+No solution
+
+<li>
+Milestones
+
+<ul>
+<li>
+Dynamic type inference using random testing
+
+<li>
+Random testing for dynamically typed languages using existing instances
+
+<li>
+Automated random testing for dynamically typed languages
+
+<li>
+Sandboxing for testing
+
+</ul>
+</ul>
+</ul>
+
+
+<div id="Journal"><h1 id="Journal">Journal</h1></div>
+<div id="Journal-Things Done"><h2 id="Things Done">Things Done</h2></div>
+<ul>
+<li>
+Handling switch cases in CAVM
+
+<ul>
+<li>
+One difficulty is that it is read from the bottom-up
+
+</ul>
+<li>
+Tried to config Neomake for include files and local vimrc
+
+<li>
+Seminar (진한)
+
+<ul>
+<li>
+Anti-Patterns in Search-Based Program Repair
+
+<li>
+'do-not' rules (e.g. do not remove return statement)
+
+</ul>
+<li>
+Life related stuff
+
+<li>
+Application M2
+
+</ul>
+
+<div id="Journal-Blocking Points"><h2 id="Blocking Points">Blocking Points</h2></div>
+<ul>
+<li>
+The queue used by Process, the program puts in it its traces?
+
+<li>
+Returns in switch cases in function calls
+
+<li>
+<del>Stmtid assignment going reverse</del> -&gt; is ok
+
+<li>
+Add child to parent
+
+<ul>
+<li>
+2 passes, first one to print additional if, second is the original
+
+<li>
+TreeTransform -&gt; requires to use SemaConsumer instead of ASTConsumer (<a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;30451485&#47;how-to-clone-or-create-an-ast-stmt-node-of-clang">SO</a>)
+
+</ul>
+</ul>
+
+<div id="Journal-Planned work"><h2 id="Planned work">Planned work</h2></div>
+<ul>
+<li class="done0">
+Think about what work to focus on (dynamically typed languages?)
+
+<li class="done0">
+Read about Alternating Variable Method
+
+<li class="done0">
+Understand CAVM
+
+<li class="done0">
+Read about testing Dynamically Typed languages
+
+<li class="done3">
+Handling switch cases in CAVM
+
+<ul>
+<li class="done3">
+Extend <code>MyASTVisitor::VisitStmt</code>
+
+<ul>
+<li class="done3">
+<code>if</code> blocks before the <code>switch</code>
+
+<ul>
+<li class="done4">
+Regular <code>case</code> and <code>default</code>
+
+<li class="done4">
+Dealing with omission of <code>break</code>
+
+<li class="done4">
+Name of the temporary variable
+
+<li class="done4">
+Stmt id with parent of <code>switch</code>
+
+<ul>
+<li class="done4">
+ASTContext in Visitor
+
+<li class="done4">
+Parent is next <code>if</code>
+
+</ul>
+<li class="done4">
+Add block around <code>if</code> + <code>switch</code>
+
+<li class="done0">
+Add first <code>if</code> as child of parent
+
+</ul>
+<li class="done4">
+keep <code>switch</code>
+
+</ul>
+<li class="done4">
+Add MWE (Minimal Working Example)
+
+</ul>
+</ul>
+
+</body>
+</html>

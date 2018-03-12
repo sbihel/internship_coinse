@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Week  5</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<div id="Bibliography"><h1 id="Bibliography">Bibliography</h1></div>
+<ul>
+<li>
+TODO Evaluating CAVM: A New Search-Based Test Data Generation Tool for C (long 1st-submission version)
+
+</ul>
+
+<div id="Bibliography-AVM"><h2 id="AVM">AVM</h2></div>
+
+<div id="Bibliography-SBSE"><h2 id="SBSE">SBSE</h2></div>
+<ul>
+<li>
+REDO <a href="http:&#47;&#47;onlinelibrary.wiley.com&#47;doi&#47;10.1002&#47;stvr.294&#47;epdf">mcminn2004search</a> Search-based Software Test Data Generation: A Survey
+
+<ul>
+<li>
+Test Data Generation Survey.
+
+<li>
+Good overview of Metaheuristic Search Techniques (Section 2) and Structural (White-Box) Testing (Section 3)
+
+</ul>
+<li>
+TODO <a href="http:&#47;&#47;mcminn.io&#47;publications&#47;tr1.pdf">mcminn2007iguana</a> IGUANA: Input Generation Using Automated Novel Algorithms. A Plug and Play Research Tool
+
+</ul>
+
+<div id="Bibliography-Dynamically-Typed Languages"><h2 id="Dynamically-Typed Languages">Dynamically-Typed Languages</h2></div>
+<ul>
+<li>
+<a href="http:&#47;&#47;www.hpi.uni-potsdam.de&#47;hirschfeld&#47;publications&#47;media&#47;HauptPerscheidHirschfeld_2011_TypeHarvestingAPracticalApproachToObtainingTypingInformationInDynamicProgrammingLanguages_AcmDL.pdf">haupt2011type</a> Type Harvesting A Practical Approach to Obtaining Typing Information in Dynamic Programming Languages
+
+<ul>
+<li>
+"exploiting unit tests to automatically obtain type information for a code base"
+
+</ul>
+<li>
+<a href="http:&#47;&#47;cseweb.ucsd.edu&#47;~rchugh&#47;research&#47;popl12-nested.pdf">chugh2012nested</a> (<a href="https:&#47;&#47;arxiv.org&#47;pdf&#47;1112.4106.pdf">chugh2012dependent</a>) Nested Refinements: A Logic for Duck Typing
+
+<ul>
+<li>
+"System D coordinates SMT-based logical implication and syntactic subtyping to automatically typecheck"
+
+<li>
+Verification
+
+<li>
+you know the type of parameters (I think)
+
+</ul>
+</ul>
+
+<div id="Bibliography-Object-Oriented Languages &#47; Complex Structures"><h2 id="Object-Oriented Languages &#47; Complex Structures">Object-Oriented Languages / Complex Structures</h2></div>
+
+<div id="Bibliography-Random Testing"><h2 id="Random Testing">Random Testing</h2></div>
+
+<div id="Bibliography-Mutation Testing"><h2 id="Mutation Testing">Mutation Testing</h2></div>
+
+<div id="Bibliography-Mock Testing"><h2 id="Mock Testing">Mock Testing</h2></div>
+<ul>
+<li>
+<a href="http:&#47;&#47;planningcards.com&#47;site&#47;history&#47;thoughts&#47;Papers&#47;mockobjects.pdf">mackinnon2000endo</a> Endo-Testing: Unit Testing with Mock Objects
+
+<ul>
+<li>
+Pratical POV of mock testing
+
+<li>
+mentions (benefits of) static but no dynamic
+
+</ul>
+<li>
+<a href="http:&#47;&#47;taoxie.cs.illinois.edu&#47;publications&#47;ase10-moda.pdf">taneja2010moda</a> MODA: Automated test generation for database applications via mock objects
+
+<ul>
+<li>
+Application to databases, with parametrized unit tests
+
+</ul>
+<li>
+<a href="https:&#47;&#47;www.researchgate.net&#47;profile&#47;Tim_Mackinnon&#47;publication&#47;221320466_Mock_Roles_Not_Objects&#47;links&#47;02e7e536beb8cca40f000000.pdf">freeman2004mock</a> Mock Roles, Not Objects
+
+<ul>
+<li>
+Long paper, <span id="Bibliography-Mock Testing-full"></span><strong id="full">full</strong> of insights and techniques on using Mocks in practice
+
+</ul>
+<li>
+<a href="http:&#47;&#47;ieeexplore.ieee.org&#47;abstract&#47;document&#47;4019611&#47;">tillmann2006mock</a> Mock-Object Generation with Behavior
+
+<ul>
+<li>
+Short paper, .NET
+
+<li>
+Uses symbolic execution (and concrete, =&gt; concolic)
+
+</ul>
+</ul>
+
+<div id="Bibliography-Test Data"><h2 id="Test Data">Test Data</h2></div>
+<ul>
+<li>
+TODO <a href="http:&#47;&#47;www.simonpoulding.net&#47;papers&#47;issre_2013_preprint.pdf">feldt2013finding</a> Finding Test Data with Specific Properties via Metaheuristic Search
+
+<li>
+TODO <a href="http:&#47;&#47;ieeexplore.ieee.org&#47;document&#47;1702369&#47;#full-text-section">miller1976automatic</a> Automatic generation of floating-point test data
+
+</ul>
+
+
+<div id="Journal"><h1 id="Journal">Journal</h1></div>
+<div id="Journal-Things Done"><h2 id="Things Done">Things Done</h2></div>
+<ul>
+<li>
+work on pavm
+
+<li>
+work on cavm
+
+</ul>
+
+<ul>
+<li>
+thoughts on AVM for types
+
+<ul>
+<li>
+finding type isn't a good goal because all types can fit with duck typing
+
+<li>
+mock objects seem to be the solution (?)
+
+<ul>
+<li>
+When do you stop in 'recursive' mock objects?
+
+<li>
+for each method that is missing you have to re-executing the whole function, maybe we need automatically
+          laziness
+
+<ul>
+<li>
+the execution could be different if the method exists in some edge cases
+
+</ul>
+<li>
+Nothing useful in the related work
+
+</ul>
+<li>
+How do you know that a type error isn't actually a bug?
+
+<ul>
+<li>
+if every type generates it?
+
+<li>
+what is 'every type'?
+
+<li>
+with mock objects you can implement it and miss the bug
+
+<li>
+what if the function is supposed to raise a TypeError in some cases?
+
+</ul>
+<li>
+try every possible combination of types?
+
+<ul>
+<li>
+no that's stupid we're doing AVM
+
+</ul>
+<li>
+one AVM for types then one AVM for values? doesn't seem possible
+
+</ul>
+<li>
+Integrated a random choice of type in the AVM
+
+<ul>
+<li>
+type is changed only when there is a <code>TypeError</code>
+
+<li>
+has a list of supported/usable types
+
+<li>
+AVM for types
+
+<ul>
+<li>
+if the error message changes, change variable
+
+<li>
+might have a <code>TypeError</code> later on because <code>if False:</code> instead of <code>if 0:</code>
+
+</ul>
+</ul>
+</ul>
+
+<ul>
+<li>
+RuTeG code analysis
+
+<ul>
+<li>
+Data Generators
+
+<ul>
+<li>
+Basic random generators for Floats, Fixnum, Arrays, Strings, Objects
+
+<li>
+Additional User-Defined generators for email addresses, complex numbers, matrices, ...
+
+<li>
+Uses a list of supported types
+
+<li>
+"TypeList maintains information about possible input types for parameters. Such a list is created for each
+          parameter individually. For each type within the list, a value can be assigned, that expresses the "goodness"
+          of a type"
+
+</ul>
+<li>
+Quite similar to what I did
+
+</ul>
+<li>
+<a href="https:&#47;&#47;github.com&#47;simonpoulding&#47;DataGenerators.jl">https://github.com/simonpoulding/DataGenerators.jl</a>
+
+</ul>
+
+<ul>
+<li>
+Can we write something for small programs, have a list of all possible types and try them
+
+</ul>
+
+<ul>
+<li>
+(Citation from Shin Yoo) I see two major approaches viable:
+
+<ol>
+<li>
+SBST for dynamically typed languages is really just type inference + the good old SBST
+
+<li>
+No, we should infer types using search as well.
+
+</ol>
+</ul>
+
+<ul>
+<li>
+Maybe it could be interesting to use complex structures/types only when there are annotations
+
+<ul>
+<li>
+(I think I've read that having lots of classes is a code smell, so annotating complex parameters isn't a big
+      overhead?)
+
+</ul>
+</ul>
+
+<div id="Journal-Blocking Points"><h2 id="Blocking Points">Blocking Points</h2></div>
+<ul>
+<li>
+<del>Returns</del> Exits in switch cases in function calls
+
+<ul>
+<li>
+underlying problem, one <code>if</code> for multiple cases
+<pre c>
+switch (a) {
+    case 1: huge_problem();
+    case 2: break;
+</pre>
+
+</ul>
+<li>
+Instrumenting <code>for</code>
+
+<ul>
+<li>
+handle <code>in</code> comparator
+
+</ul>
+<li>
+Instrumenting <code>is</code>
+
+<ul>
+<li>
+Does it make sense? because it's testing UID
+
+</ul>
+<li>
+Is TypeError a real bug or are we using the wrong type?
+
+<li>
+TypeError during type AVM
+
+<ul>
+<li>
+redo all branches?
+<pre python>
+def test(a):
+    if a:
+        a + 1
+</pre>
+
+</ul>
+<li>
+Using floats instead of ints means that we need a way to have exact values for floats
+
+</ul>
+
+
+<div id="Journal-Planned work"><h2 id="Planned work">Planned work</h2></div>
+<ul>
+<li class="done3">
+Instrument Python code
+
+<ul>
+<li class="done3">
+Instrument code
+
+<ul>
+<li class="done2">
+Modify code
+
+<ul>
+<li class="done4">
+Basic comparators handled: <del>Eq</del> | <del>NotEq</del> | <del>Lt</del> | <del>ltE</del> | <del>Gt</del> | <del>GtE</del>
+
+<li class="done0">
+Other comparators handled: Is | <del>IsNot</del> | In | <del>NotIn</del>
+
+<li class="done0">
+Other boolean like <code>__notzero__</code>
+
+<li class="done4">
+Use methods instead <code>l_and</code> e.g.
+
+<li class="done2">
+Branching handled
+
+<ul>
+<li class="done4">
+<code>if</code>
+
+<ul>
+<li class="done4">
+<code>if</code>
+
+<li class="done4">
+<code>else</code>
+
+</ul>
+<li class="done2">
+<code>while</code>
+
+<ul>
+<li class="done4">
+<code>while</code>
+
+<li class="done0">
+<code>else</code>
+
+</ul>
+<li class="done0">
+<code>for</code>
+
+<ul>
+<li class="done0">
+<code>for</code> (add decorator to <code>__iter__</code> <a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;1420484&#47;how-can-i-add-a-decorator-to-an-existing-object-method">https://stackoverflow.com/questions/1420484/how-can-i-add-a-decorator-to-an-existing-object-method</a>?)
+
+<li class="done0">
+<code>else</code>
+
+<li class="done0">
+<code>AsyncFor</code>
+
+</ul>
+</ul>
+</ul>
+<li class="done4">
+Write <code>branch_distance</code> functions
+
+<li class="done4">
+Generate the dependence map
+
+<ul>
+<li class="done4">
+<code>stmtid</code> generation
+
+<li class="done4">
+dependence assignment
+
+<li class="done4">
+Make the <code>ControlDependency cfg</code> more global as in the c version
+
+</ul>
+<li class="done4">
+Instrument of a single function
+
+</ul>
+</ul>
+</ul>
+
+<ul>
+<li class="done3">
+Convert the global tool for Python
+
+<ul>
+<li class="done4">
+import file from name (and the file might be in another dir)
+
+<ul>
+<li>
+Using <code>importlib.util</code> so we'll assume this project is Python 3.5+ <a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;67631&#47;how-to-import-a-module-given-the-full-path">https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path</a>
+
+</ul>
+<li class="done4">
+carry around function name string
+
+<li class="done4">
+always use 'sandbox' (i.e. execute function in <code>Process</code>) to avoid importing the SUT in the tool
+
+<li class="done4">
+add <code>branch_distance.py</code> to the dir of the tested file
+
+<li class="done0">
+find a better way for <code>Process</code> sandbox, a virgin process is enough but maybe not possible because of shared
+          queue
+
+<li class="done4">
+<code>current_elem</code> should be an index because we're just modifying a copy atm
+
+<li class="done0">
+divide at some point for <code>float</code>
+
+<li class="done4">
+sometimes, the false and true branches are both false
+
+<li class="done2">
+lists
+
+<ul>
+<li class="done4">
+param indexing with depth
+
+<li class="done0">
+recursive search
+
+<li>
+assumes there is a first element
+
+<ul>
+<li>
+in the search, try there for the empty list?
+
+</ul>
+</ul>
+<li class="done4">
+changed from passing around the elem to passing around the index, but now I can't access elements in lists
+
+<ul>
+<li>
+use a tuple of indexes
+
+</ul>
+</ul>
+</ul>
+
+<ul>
+<li class="done1">
+AVM to find correct type of python function
+
+<ul>
+<li class="done4">
+Make it possible for cavm to execute the python function
+
+<li class="done0">
+More than just types, e.g. a negative integer
+
+<li class="done0">
+primitive types: <span id="Journal-Planned work-<del>bool</del>"></span><strong id="<del>bool</del>"><del>bool</del></strong>, numeric (<span id="Journal-Planned work-<del>int</del>"></span><strong id="<del>int</del>"><del>int</del></strong>, <span id="Journal-Planned work-<del>float</del>"></span><strong id="<del>float</del>"><del>float</del></strong>, complex), iterator, sequence (<span id="Journal-Planned work-list"></span><strong id="list">list</strong>, tuple, range), <span id="Journal-Planned work-str"></span><strong id="str">str</strong>, binary
+          sequence (bytes, bytearray, memoryview), set (set, frozenset), dict, context manager
+          other built-in types: modules, classes, functions, methods, ...
+
+<ul>
+<li>
+ignore 'Truth Value Testing'?
+
+<li>
+keep a list of tested types for each param?
+
+</ul>
+<li class="done0">
+Get information from TypeError
+
+<li class="done0">
+Floats seem to stay between 0 and 1
+
+<li class="done0">
+try False and True to avoid problems with e.g. empty list
+
+<li class="done0">
+try [] and with an element to know the type of the list, for now we'll put always the same type in lists
+
+<ul>
+<li>
+an error can occur after because of the size being too small
+
+</ul>
+</ul>
+</ul>
+
+<ul>
+<li class="done4">
+CAVM <code>switch</code> <code>default</code> <code>if</code>, the False branch will never be taken thus wasting computing
+
+<ul>
+<li>
+underlying problem, one <code>if</code> for multiple cases
+
+</ul>
+<li class="done0">
+Better integration of the first round for code generation for <code>switch</code> in CAVM
+
+<ul>
+<li>
+Better file names
+
+</ul>
+</ul>
+
+<ul>
+<li class="done4">
+Read about mock objects testing
+
+<li class="done0">
+Read the code of RuTeG
+
+<li class="done0">
+Read about GodelTest
+
+</ul>
+
+</body>
+</html>
