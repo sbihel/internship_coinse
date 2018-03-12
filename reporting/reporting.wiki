@@ -23,13 +23,13 @@ Project:     https://github.com/sbihel/internship_coinse
 
 
 = Global Goals =
-- [o] Report (2017-08-04)
-    - [ ] 12~15 pages, LaTeX lncs [[http://www.springer.com/computer/lncs?SGWID=0-164-6-793341-0]]
+- [X] Report (2017-08-04)
+    - 12~15 pages, LaTeX lncs [[http://www.springer.com/computer/lncs?SGWID=0-164-6-793341-0]]
     - [X] First page: title, author, supervisor, start/end dates, location
-    - [ ] To submit on [[https://easychair.org/conferences/?conf=ensrennesditm12017|easychair]]
-    - [ ] [[https://wiki.dit.ens-rennes.fr/DIT/Dokuwiki/doku.php/annees:2016-17:stages_m1#etape_4rapport]]
+    - [X] To submit on [[https://easychair.org/conferences/?conf=ensrennesditm12017|easychair]]
+    - [[https://wiki.dit.ens-rennes.fr/DIT/Dokuwiki/doku.php/annees:2016-17:stages_m1#etape_4rapport]]
     - [X] Grants logos
-- [ ] Defense (2017-09)
+- [X] Defense (2017-09)
     - 15 minutes + 5 minutes of Q&A
     - [[https://wiki.dit.ens-rennes.fr/DIT/Dokuwiki/doku.php/annees:2016-17:stages_m1#etape_5soutenances]]
 
